@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Image } from "react-konva";
 
-class Canvas extends Component {
+class Drawing extends Component {
   constructor() {
     super();
     this.state = {
@@ -88,4 +88,4 @@ class Canvas extends Component {
   }
 }
 
-export default Canvas;
+export default Drawing;
