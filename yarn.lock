@@ -5736,6 +5736,11 @@ kleur@^2.0.1:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-2.0.2.tgz#b704f4944d95e255d038f0cb05fb8a602c55a300"
   integrity sha512-77XF9iTllATmG9lSlIv0qdQ2BQ/h9t0bJllHlbvsQ0zUWfU7Yi0S8L5JXzPZgkefIiajLmBJJ4BsMJmqcf7oxQ==
 
+konva@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-3.2.3.tgz#421c6b4d28ea4fea555a827acd05460a94944349"
+  integrity sha512-/7tzp91LWB55A7vl9zjvQfqkoL0llhwK/Z1a3pxwxsjtxIRhCs1Z+FhGZ1wfmrz7arX7lHyRJML+FZrW8y5Iwg==
+
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/last-call-webpack-plugin/-/last-call-webpack-plugin-3.0.0.tgz#9742df0e10e3cf46e5c0381c2de90d3a7a2d7555"
@@ -7906,7 +7911,7 @@ react-dev-utils@^8.0.0:
     strip-ansi "5.0.0"
     text-table "0.2.0"
 
-react-dom@16.8.4:
+react-dom@^16.8.4:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.4.tgz#1061a8e01a2b3b0c8160037441c3bf00a0e3bc48"
   integrity sha512-Ob2wK7XG2tUDt7ps7LtLzGYYB6DXMCLj0G5fO6WeEICtT4/HdpOi7W/xLzZnR6RCG1tYza60nMdqtxzA8FaPJQ==
@@ -7925,6 +7930,24 @@ react-is@^16.8.1:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"
   integrity sha512-PVadd+WaUDOAciICm/J1waJaSvgq+4rHE/K70j0PFqKhkTBsPv/82UGQJNXAngz1fOQLLxI6z1sEDmJDQhCTAA==
+
+react-konva@^16.8.4:
+  version "16.8.4"
+  resolved "https://registry.yarnpkg.com/react-konva/-/react-konva-16.8.4.tgz#9c6f4e12694c3fcb28775c75f965705031f67fe4"
+  integrity sha512-YA/QkMsb7+xgCV28PVemU3a8REmrRYMeJuGb+VRaFX58uIzvj015Tu9jp6rvJOkp6kbFd07Za8zWO2RxZoMgZw==
+  dependencies:
+    react-reconciler "^0.20.2"
+    scheduler "^0.13.4"
+
+react-reconciler@^0.20.2:
+  version "0.20.2"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.20.2.tgz#f72fe0329d579371f253719080e7d090262330a9"
+  integrity sha512-D0Vf/XQkhrZTHTqU5xnjruiXaTcKlPzjENJ7qOqC8d48+qZHb3hBa8n/tmRN7LeeKREBuUUQgFuOsKH55VXioQ==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.13.4"
 
 react-scripts@2.1.8:
   version "2.1.8"
@@ -7980,7 +8003,7 @@ react-scripts@2.1.8:
   optionalDependencies:
     fsevents "1.2.4"
 
-react@16.8.4:
+react@^16.8.4:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.4.tgz#fdf7bd9ae53f03a9c4cd1a371432c206be1c4768"
   integrity sha512-0GQ6gFXfUH7aZcjGVymlPOASTuSjlQL4ZtVC5YKH+3JL6bBLCVO21DknzmaPlI90LN253ojj02nsapy+j7wIjg==
