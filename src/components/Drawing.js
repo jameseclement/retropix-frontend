@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { Image } from "react-konva";
+import Konva from "react-konva";
+import {isEmpty} from 'lodash';
 
 class Drawing extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.imageLoaded = false;
 
     this.state = {
       isDrawing: false,
@@ -16,7 +19,30 @@ class Drawing extends Component {
     canvas.width = this.props.width;
     canvas.height = this.props.height;
     const ctx = canvas.getContext("2d");
+
     this.setState({ canvas, ctx });
+  }
+
+  componentDidUpdate(prevProps) {
+    // console.log('didUpdate', prevProps, this.props)
+    if (this.props.doc !== prevProps.doc) {
+      // this.renderImage()
+      this.handleMouseMove()
+    }
+  }
+
+  renderImage() {
+    const {ctx} = this.state;
+    const {doc} = this.props;
+    const img = new Image();
+    console.log('renderImage', doc)
+
+    img.onload = () => {
+      ctx.clearRect(0, 0, this.props.width, this.props.height)
+      ctx.drawImage(img, 0, 0)
+    }
+    
+    img.src = doc.current_version.data
   }
 
   handleMouseDown = () => {
@@ -35,6 +61,18 @@ class Drawing extends Component {
 
   handleMouseMove = () => {
     const { ctx, isDrawing, mode } = this.state;
+    const {doc} = this.props;
+    
+    // load the image
+    if (!isEmpty(doc) && !this.imageLoaded) {
+      const img = new Image();
+      img.onload = () => {
+        ctx.clearRect(0, 0, this.props.width, this.props.height)
+        ctx.drawImage(img, 0, 0)
+      }
+      img.src = doc.current_version.data
+      this.imageLoaded = true;
+    }
 
     if (!isDrawing) {
       return;
@@ -73,9 +111,32 @@ class Drawing extends Component {
   };
 
   render() {
-    const { canvas } = this.state;
+    let {canvas, ctx} = this.state;
+    console.log(this.state)
+
+    // if (!isEmpty(doc)) {
+    //   console.log("not empty doc", doc);
+    //   src = doc.current_version.data;
+    // }
+
+    // if (ctx) {
+    //   // console.log("not empty context", ctx);
+    //   const {doc} = this.props;
+
+    //   if (!isEmpty(doc)) {
+    //     console.log("not empty doc", doc);
+    //     canvas = new Image();
+    //     canvas.onload = () => {
+    //       ctx.clearRect(0, 0, this.props.width, this.props.height)
+    //       ctx.drawImage(canvas, 0, 0)
+    //     }
+    //     canvas.src = doc.current_version.data
+    //     // console.log(this.props);
+    //   }
+    // }
+
     return (
-      <Image
+      <Konva.Image
         image={canvas}
         ref={node => (this.image = node)}
         width={this.props.width}
