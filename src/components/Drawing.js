@@ -4,6 +4,7 @@ import { Image } from "react-konva";
 class Drawing extends Component {
   constructor() {
     super();
+
     this.state = {
       isDrawing: false,
       mode: "brush"
@@ -12,8 +13,8 @@ class Drawing extends Component {
 
   componentDidMount() {
     const canvas = document.createElement("canvas");
-    canvas.width = 300;
-    canvas.height = 300;
+    canvas.width = this.props.width;
+    canvas.height = this.props.height;
     const ctx = canvas.getContext("2d");
     this.setState({ canvas, ctx });
   }
@@ -77,8 +78,8 @@ class Drawing extends Component {
       <Image
         image={canvas}
         ref={node => (this.image = node)}
-        width={300}
-        height={300}
+        width={this.props.width}
+        height={this.props.height}
         stroke="blue"
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}

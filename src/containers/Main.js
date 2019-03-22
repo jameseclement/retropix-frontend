@@ -4,7 +4,7 @@ import Canvas from "../components/Canvas";
 class Main extends Component {
   render() {
     return (
-      <Canvas />
+      <Canvas width={700} height={700} />
     );
   }
 }

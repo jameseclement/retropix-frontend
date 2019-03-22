@@ -5,9 +5,9 @@ import Drawing from "./Drawing";
 class Canvas extends Component {
   render() {
     return (
-      <Stage width={700} height={700}>
+      <Stage width={this.props.width} height={this.props.height}>
         <Layer>
-          <Drawing />
+          <Drawing width={this.props.width} height={this.props.height} />
         </Layer>
       </Stage>
     );
