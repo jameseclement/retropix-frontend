@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.scss";
+import Nav from "./containers/Nav";
 import Main from "./containers/Main";
 import Adapter from "./Adapter";
 
@@ -36,11 +37,12 @@ class App extends Component {
   }
 
   render() {
-    return;
-    <div>
-      <Nav />
-      <Main doc={this.state.doc} />
-    </div>;
+    return (
+      <div>
+        <Nav />
+        <Main doc={this.state.doc} />
+      </div>
+    )
   }
 }
 
