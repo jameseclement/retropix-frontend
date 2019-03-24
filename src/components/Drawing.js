@@ -2,19 +2,25 @@ import React, { Component } from "react";
 import Konva from "react-konva";
 import {isEmpty} from 'lodash';
 
+import Theramin from './Theramin'
+
 class Drawing extends Component {
   constructor(props) {
     super(props);
+    this.theramin = React.createRef()
 
     this.imageLoaded = false;
 
     this.state = {
       isDrawing: false,
-      mode: "brush"
+      mode: "brush",
+      x: 0, y: 0
     };
   }
 
   componentDidMount() {
+    this.loadAudio();
+
     const canvas = document.createElement("canvas");
     canvas.width = this.props.width;
     canvas.height = this.props.height;
@@ -23,11 +29,45 @@ class Drawing extends Component {
     this.setState({ canvas, ctx });
   }
 
+  componentWillUnmount() {
+    this.unloadAudio();
+  }
+
   componentDidUpdate(prevProps) {
     // console.log('didUpdate', prevProps, this.props)
     if (this.props.doc !== prevProps.doc) {
       // this.renderImage()
       this.handleMouseMove()
+    }
+  }
+
+  loadAudio() {
+    this.context = new AudioContext();
+    this.oscillator = this.context.createOscillator();
+    this.oscillator.connect(this.context.destination);
+    this.oscillator.start(this.context.currentTime);
+  }
+
+  unloadAudio() {
+    this.oscillator.stop(this.context.currentTime);
+    this.oscillator.disconnect();
+  }
+
+  setFrequency(val) {
+    if (!this.oscillator || !this.oscillator.frequency) return
+    const freq = ~~(1000 * (1-(val / this.props.height)));
+    this.oscillator.frequency.value = freq;
+  }
+
+  setVolume(val) {
+    if (!this.oscillator || !this.oscillator.gain) return
+    console.log('isDrawing', this.state.isDrawing)
+
+    if (this.state.isDrawing) {
+      const vol = ~~(val / this.props.width*100) / 100;
+      this.oscillator.gain.value = vol;
+    } else {
+      this.oscillator.gain.value = 0
     }
   }
 
@@ -45,21 +85,31 @@ class Drawing extends Component {
     img.src = doc.current_version.data
   }
 
-  handleMouseDown = () => {
-    this.setState({
-      isDrawing: true
-    });
+  handleMouseDown = (event) => {
     const stage = this.image.parent.parent;
     this.lastPointerPosition = stage.getPointerPosition();
-  };
-
-  handleMouseUp = () => {
+    
     this.setState({
-      isDrawing: false
+      isDrawing: true,
+      x: this.lastPointerPosition.x,
+      y: this.lastPointerPosition.y
     });
+
+    // const xPos = event.clientX || event.touches[0].clientX;
+    // const yPos = event.clientY || event.touches[0].clientY;
+    // this.theramin.current.handleMouseDown(xPos, yPos);
+    this.setFrequency(this.lastPointerPosition.x)
+    this.setVolume(this.lastPointerPosition.y)
   };
 
-  handleMouseMove = () => {
+  handleMouseUp = (event) => {
+    this.setState(
+      {isDrawing: false},
+      () => this.setVolume(0)
+    );
+  };
+
+  handleMouseMove = (event) => {
     const { ctx, isDrawing, mode } = this.state;
     const {doc} = this.props;
     
@@ -102,17 +152,22 @@ class Drawing extends Component {
       x: pos.x - this.image.x(),
       y: pos.y - this.image.y()
     };
-
+    
     ctx.lineTo(localPos.x, localPos.y);
     ctx.closePath();
     ctx.stroke();
     this.lastPointerPosition = pos;
     this.image.getLayer().draw();
+
+    this.setState({x: localPos.x, y: localPos.y})
+
+    this.setFrequency(localPos.x)
+    this.setVolume(localPos.y)
   };
 
   render() {
     let {canvas, ctx} = this.state;
-    console.log(this.state)
+    // console.log(this.state)
 
     // if (!isEmpty(doc)) {
     //   console.log("not empty doc", doc);
@@ -136,16 +191,18 @@ class Drawing extends Component {
     // }
 
     return (
-      <Konva.Image
+      <React.Fragment>
+        <Konva.Image
         image={canvas}
         ref={node => (this.image = node)}
-        width={this.props.width}
-        height={this.props.height}
-        stroke="blue"
-        onMouseDown={this.handleMouseDown}
-        onMouseUp={this.handleMouseUp}
-        onMouseMove={this.handleMouseMove}
-      />
+          width={this.props.width}
+          height={this.props.height}
+          stroke="blue"
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
+          onMouseMove={this.handleMouseMove}
+          />
+      </React.Fragment>
     );
   }
 }
