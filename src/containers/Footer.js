@@ -4,9 +4,9 @@ import VersionContainer from "./VersionContainer";
 class Footer extends Component {
   render() {
     return (
-      <div>
-        <VersionContainer />
-      </div>
+      <footer>
+        <VersionContainer versions={this.props.versions} />
+      </footer>
     );
   }
 }

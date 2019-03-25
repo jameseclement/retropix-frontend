@@ -4,6 +4,7 @@ import { Grid } from "semantic-ui-react";
 import Nav from "./containers/Nav";
 import Main from "./containers/Main";
 import Sidebar from "./containers/Sidebar";
+import Footer from "./containers/Footer";
 import Demo from "./components/Demo";
 import Adapter from "./Adapter";
 
@@ -14,6 +15,7 @@ class App extends Component {
       user: { id: 1 },
       doc_id: 1,
       doc: {},
+      versions: [],
       version: {},
       tool: "pencil",
       color: "black",
@@ -55,7 +57,7 @@ class App extends Component {
 
   loadDoc = id => {
     Adapter.getDoc(this.state.user.id, this.state.doc_id).then(doc =>
-      this.setState({ doc })
+      this.setState({doc, versions: doc.versions})
     );
   }
 
@@ -89,6 +91,7 @@ class App extends Component {
             />
           </Grid.Column>
         </Grid>
+        <Footer versions={this.state.versions} />
       </div>
     );
   }

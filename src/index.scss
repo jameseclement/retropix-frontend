@@ -114,4 +114,26 @@ $tool-border-width: 4px;
 
 /* modal */
 
+/* versions */
+
+.version-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: row;
+  justify-content: start;
+  margin-top: 10px;
+  height: 120px;
+}
+
+.version-thumb {
+  border: 2px solid #000;
+  padding: 2px;
+  margin-right: 6px;
+  height: 100%;
+
+  img {height: 100%;}
+}
+
 /* misc */

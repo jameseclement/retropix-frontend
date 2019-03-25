@@ -1,9 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 
-class VersionThumbnail extends Component {
-  render() {
-    return <div />;
-  }
-}
+const VersionThumbnail = (props) => {
+  return (
+    <img 
+      className="version-thumb"
+      src={props.version.data} 
+      alt={props.version.id} 
+    />
+  );
+};
 
 export default VersionThumbnail;
