@@ -1,6 +1,24 @@
 import React, { Component } from "react";
 
 class ToolContainer extends Component {
+  constructor() {
+    super();
+    this.colors = [
+      "red",
+      "orange",
+      "yellow",
+      "olive",
+      "green",
+      "teal",
+      "blue",
+      "violet",
+      "purple",
+      "pink",
+      "brown",
+      "grey",
+      "black"
+    ];
+  }
   render() {
     let pencilClasses = "tool";
     let eraserClasses = "tool";
@@ -50,7 +68,17 @@ class ToolContainer extends Component {
             type="range"
             min="3"
             max="30"
+            value={this.props.size}
           />
+          <select onChange={this.props.handleColorChange}>
+            {this.colors.map(color => {
+              return (
+                <option selected={this.props.color === color} value={color}>
+                  {color}
+                </option>
+              );
+            })}
+          </select>
         </div>
       </div>
     );

@@ -16,7 +16,7 @@ class App extends Component {
       doc: {},
       version: {},
       tool: "pencil",
-      color: null,
+      color: "black",
       size: 3
     };
   }
@@ -32,6 +32,13 @@ class App extends Component {
     console.log(e.currentTarget.value);
     this.setState({
       size: e.currentTarget.value
+    });
+  };
+
+  handleColorChange = e => {
+    console.log(e.currentTarget.value);
+    this.setState({
+      color: e.currentTarget.value
     });
   };
 
@@ -62,6 +69,9 @@ class App extends Component {
               handleToolClick={this.handleToolClick}
               handleSizeChange={this.handleSizeChange}
               tool={this.state.tool}
+              handleColorChange={this.handleColorChange}
+              size={this.state.size}
+              color={this.state.color}
             />
           </Grid.Column>
           <Grid.Column width={10}>

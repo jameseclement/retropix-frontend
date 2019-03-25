@@ -9,7 +9,10 @@ class Sidebar extends Component {
         <ToolContainer
           handleToolClick={this.props.handleToolClick}
           handleSizeChange={this.props.handleSizeChange}
+          handleColorChange={this.props.handleColorChange}
           tool={this.props.tool}
+          size={this.props.size}
+          color={this.props.color}
         />
         <ColorContainer />
       </React.Fragment>
