@@ -12,6 +12,7 @@ class Main extends Component {
         size={this.props.size}
         width={700}
         height={400}
+        handleSave={this.props.handleSave}
       />
     );
   }

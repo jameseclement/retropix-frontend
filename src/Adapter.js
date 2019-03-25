@@ -9,12 +9,13 @@ class Adapter {
       .then(res => res.json())
   }
 
-  static saveDoc(userId, id, versionData) {
-    return fetch(`${Adapter.api}/users/${userId}/documents/${id}/versions`, {
+  static saveVersion(userId, docId, versionData) {
+    return fetch(`${Adapter.api}/users/${userId}/documents/${docId}/versions`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({data: versionData})})
       .then(res => res.json())
+      .then(console.log)
   }
 }
 

@@ -9,10 +9,9 @@ class Canvas extends Component {
     this.stage = React.createRef();
   }
 
-  onSave = () => {
+  handleSave = () => {
     const dataURL = this.stage.current.toDataURL();
-    // Adapter.saveDocument( , id, versionData)
-    // console.log(this.stage.current.toDataURL());
+    this.props.handleSave(this.props.doc.id, dataURL)
   };
 
   render() {
@@ -34,7 +33,7 @@ class Canvas extends Component {
             />
           </Layer>
         </Stage>
-        <button onClick={this.onSave}>Save</button>
+        <button onClick={this.handleSave}>Save</button>
       </React.Fragment>
     );
   }

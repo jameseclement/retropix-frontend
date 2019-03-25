@@ -53,10 +53,15 @@ class App extends Component {
     });
   }
 
-  loadDoc(id) {
+  loadDoc = id => {
     Adapter.getDoc(this.state.user.id, this.state.doc_id).then(doc =>
       this.setState({ doc })
     );
+  }
+
+  saveVersion = (docId, versionData) => {
+    const userId = this.state.user.id;
+    Adapter.saveVersion(userId, docId, versionData);
   }
 
   render() {
@@ -80,6 +85,7 @@ class App extends Component {
               tool={this.state.tool}
               color={this.state.color}
               size={this.state.size}
+              handleSave={this.saveVersion}
             />
           </Grid.Column>
         </Grid>
