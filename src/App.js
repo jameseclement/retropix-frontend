@@ -73,12 +73,17 @@ class App extends Component {
     console.log("Clicked Open in Menu");
   };
 
+  handleSaveClick = () => {
+    console.log("Clicked Save in Menu");
+  };
+
   render() {
     return (
       <div>
         <Nav
           handleNewClick={this.handleNewClick}
           handleOpenClick={this.handleOpenClick}
+          handleSaveClick={this.handleSaveClick}
         />
         <Grid>
           <Grid.Column width={2}>
