@@ -54,7 +54,12 @@ class App extends Component {
             <Sidebar handleToolClick={this.handleToolClick} />
           </Grid.Column>
           <Grid.Column width={10}>
-            <Main doc={this.state.doc} tool={this.state.tool} />
+            <Main
+              doc={this.state.doc}
+              tool={this.state.tool}
+              color={this.state.color}
+              size={this.state.size}
+            />
           </Grid.Column>
         </Grid>
       </div>

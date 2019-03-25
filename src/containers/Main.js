@@ -8,6 +8,8 @@ class Main extends Component {
       <Canvas
         doc={this.props.doc}
         tool={this.props.tool}
+        color={this.props.color}
+        size={this.props.size}
         width={700}
         height={400}
       />

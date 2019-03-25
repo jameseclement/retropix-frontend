@@ -29,6 +29,8 @@ class Canvas extends Component {
               tool={this.props.tool}
               width={this.props.width}
               height={this.props.height}
+              color={this.props.color}
+              size={this.props.size}
             />
           </Layer>
         </Stage>

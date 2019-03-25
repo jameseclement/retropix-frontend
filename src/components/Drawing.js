@@ -77,9 +77,9 @@ class Drawing extends Component {
       return;
     }
 
-    ctx.strokeStyle = "#000";
+    ctx.strokeStyle = this.props.color;
     ctx.lineJoin = "round";
-    ctx.lineWidth = 5;
+    ctx.lineWidth = this.props.size;
 
     if (this.props.tool === "brush") {
       ctx.globalCompositeOperation = "source-over";
