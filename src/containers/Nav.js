@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import Modal from '../components/Modal'
+
 import {
   Grid,
   Sidebar,
@@ -21,11 +24,10 @@ class Nav extends Component {
               icon="pencil alternate"
               text="New..."
             />
-            <Dropdown.Item
+            <Dropdown.Item as={Link} to="/users/:id/open"
               onClick={this.props.handleOpenClick}
               icon="folder open outline"
-              text="Open..."
-            />
+              text="Open..." />
             <Dropdown.Item
               onClick={this.props.handleSaveClick}
               icon="save"

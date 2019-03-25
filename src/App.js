@@ -5,7 +5,10 @@ import Nav from "./containers/Nav";
 import Main from "./containers/Main";
 import Sidebar from "./containers/Sidebar";
 import Demo from "./components/Demo";
+import Modal from "./components/Modal";
 import Adapter from "./Adapter";
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
 class App extends Component {
   constructor() {
@@ -91,7 +94,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Router>
         <Nav
           handleNewClick={this.handleNewClick}
           handleOpenClick={this.handleOpenClick}
@@ -121,7 +124,8 @@ class App extends Component {
             />
           </Grid.Column>
         </Grid>
-      </div>
+        <Route exact path="/users/:id/open" component={Modal} />
+      </Router>
     );
   }
 }
