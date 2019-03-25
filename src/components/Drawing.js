@@ -35,7 +35,7 @@ class Drawing extends Component {
     const { ctx } = this.state;
     const { doc } = this.props;
     const img = new Image();
-    console.log("renderImage", doc);
+    // console.log("renderImage", doc);
 
     img.onload = () => {
       ctx.clearRect(0, 0, this.props.width, this.props.height);
@@ -149,7 +149,7 @@ class Drawing extends Component {
 
   render() {
     let { canvas, ctx } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
 
     // if (!isEmpty(doc)) {
     //   console.log("not empty doc", doc);
