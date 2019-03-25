@@ -65,10 +65,14 @@ class App extends Component {
     Adapter.saveVersion(userId, docId, versionData);
   };
 
+  handleNewClick = () => {
+    console.log("Clicked New in Menu");
+  };
+
   render() {
     return (
       <div>
-        <Nav />
+        <Nav handleNewClick={this.handleNewClick} />
         <Grid>
           <Grid.Column width={2}>
             <Sidebar

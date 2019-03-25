@@ -16,7 +16,11 @@ class Nav extends Component {
       <Menu>
         <Dropdown item text="File" className="file">
           <Dropdown.Menu>
-            <Dropdown.Item icon="pencil alternate" text="New..." />
+            <Dropdown.Item
+              onClick={this.props.handleNewClick}
+              icon="pencil alternate"
+              text="New..."
+            />
             <Dropdown.Item icon="folder open outline" text="Open..." />
             <Dropdown.Item icon="save" text="Save..." />
             <Dropdown.Item icon="save outline" text="Save As..." />
