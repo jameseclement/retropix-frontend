@@ -36,12 +36,20 @@ class Nav extends Component {
               icon="save outline"
               text="Save As..."
             />
-            <Dropdown.Item icon="power off" text="Logout..." />
+            <Dropdown.Item
+              onClick={this.props.handleLoginLogoutClick}
+              icon="power off"
+              text="Logout..."
+            />
           </Dropdown.Menu>
         </Dropdown>
         <Dropdown item text="Goodies">
           <Dropdown.Menu>
-            <Dropdown.Item icon="music" text="Music" />
+            <Dropdown.Item
+              onClick={this.props.handleMusicClick}
+              icon="music"
+              text="Music"
+            />
           </Dropdown.Menu>
         </Dropdown>
       </Menu>

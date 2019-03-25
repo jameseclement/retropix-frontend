@@ -81,6 +81,14 @@ class App extends Component {
     console.log("Clicked Save As in Menu");
   };
 
+  handleLoginLogoutClick = () => {
+    console.log("Clicked Login/Logout in Menu");
+  };
+
+  handleMusicClick = () => {
+    console.log("Clicked Music in Menu");
+  };
+
   render() {
     return (
       <div>
@@ -89,6 +97,8 @@ class App extends Component {
           handleOpenClick={this.handleOpenClick}
           handleSaveClick={this.handleSaveClick}
           handleSaveAsClick={this.handleSaveAsClick}
+          handleLoginLogoutClick={this.handleLoginLogoutClick}
+          handleMusicClick={this.handleMusicClick}
         />
         <Grid>
           <Grid.Column width={2}>
