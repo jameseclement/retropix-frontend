@@ -6,7 +6,11 @@ class Sidebar extends Component {
   render() {
     return (
       <React.Fragment>
-        <ToolContainer handleToolClick={this.props.handleToolClick} />
+        <ToolContainer
+          handleToolClick={this.props.handleToolClick}
+          handleSizeChange={this.props.handleSizeChange}
+          tool={this.props.tool}
+        />
         <ColorContainer />
       </React.Fragment>
     );

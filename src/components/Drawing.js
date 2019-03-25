@@ -81,7 +81,7 @@ class Drawing extends Component {
     ctx.lineJoin = "round";
     ctx.lineWidth = this.props.size;
 
-    if (this.props.tool === "brush") {
+    if (this.props.tool === "pencil") {
       ctx.globalCompositeOperation = "source-over";
     } else if (this.props.tool === "eraser") {
       ctx.globalCompositeOperation = "destination-out";

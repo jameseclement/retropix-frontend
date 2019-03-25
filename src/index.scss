@@ -1,19 +1,21 @@
 /* fonts/images */
 
 @font-face {
-  font-family: 'ChiKareGo2'; 
-  src: url(./fonts/ChiKareGo2.woff2) format('woff2'), /* Super Modern Browsers */
-       url(./fonts/ChiKareGo2.woff2) format('woff2'), /* Super Modern Browsers */
-       url(./fonts/ChiKareGo2.woff) format('woff'), /* Pretty Modern Browsers */
-       url(./fonts/ChiKareGo2.ttf)  format('truetype'), /* Safari, Android, iOS */
+  font-family: "ChiKareGo2";
+  src: url(./fonts/ChiKareGo2.woff2) format("woff2"),
+    /* Super Modern Browsers */ url(./fonts/ChiKareGo2.woff2) format("woff2"),
+    /* Super Modern Browsers */ url(./fonts/ChiKareGo2.woff) format("woff"),
+    /* Pretty Modern Browsers */ url(./fonts/ChiKareGo2.ttf) format("truetype"); /* Safari, Android, iOS */
 }
 
 $font: "ChiKareGo2" !default;
 $font-alt: "Press Start 2P" !default;
 $font-size: 16px !default;
 
-$font-family: $font, $font-alt, Menlo, Monaco, "Courier New", "Courier", monospace !default;
-$font-family-alt: $font-alt, $font, Menlo, Monaco, "Courier New", "Courier", monospace !default;
+$font-family: $font, $font-alt, Menlo, Monaco, "Courier New", "Courier",
+  monospace !default;
+$font-family-alt: $font-alt, $font, Menlo, Monaco, "Courier New", "Courier",
+  monospace !default;
 
 $cursor: url(../assets/cursor.png) !default;
 $cursor-click: url(../assets/cursor-click.png) !default;
@@ -54,11 +56,17 @@ $primary: $red !default;
 
 /* base */
 
-html, body {
+html,
+body {
   font-family: $font-family !important;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-family-alt !important;
   font-weight: 700;
 }
@@ -92,6 +100,9 @@ $tool-border-width: 4px;
     border-bottom: none;
   }
 
+  &.active {
+    background: darken($gray, 20%);
+  }
   &:hover {
     background: lighten($gray, 10%);
   }
@@ -104,4 +115,3 @@ $tool-border-width: 4px;
 /* modal */
 
 /* misc */
-

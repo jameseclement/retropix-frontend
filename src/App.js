@@ -15,9 +15,9 @@ class App extends Component {
       doc_id: 1,
       doc: {},
       version: {},
-      tool: null,
+      tool: "pencil",
       color: null,
-      size: null
+      size: 3
     };
   }
 
@@ -25,6 +25,13 @@ class App extends Component {
     console.log(e.currentTarget);
     this.setState({
       tool: e.currentTarget.dataset.tool
+    });
+  };
+
+  handleSizeChange = e => {
+    console.log(e.currentTarget.value);
+    this.setState({
+      size: e.currentTarget.value
     });
   };
 
@@ -51,7 +58,11 @@ class App extends Component {
         <Nav />
         <Grid>
           <Grid.Column width={2}>
-            <Sidebar handleToolClick={this.handleToolClick} />
+            <Sidebar
+              handleToolClick={this.handleToolClick}
+              handleSizeChange={this.handleSizeChange}
+              tool={this.state.tool}
+            />
           </Grid.Column>
           <Grid.Column width={10}>
             <Main
