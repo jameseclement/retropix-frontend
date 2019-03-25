@@ -25,19 +25,16 @@ class Demo extends Component {
       </Menu>
       <Grid className="">
         <Grid.Column width={2}>
-          <Sidebar.Pushable as={Segment}>
-            <Sidebar as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin'>
-              <Menu.Item as='a'>
-                <Icon name='pencil' />
-                Pencil
+          <Sidebar.Pushable as={Segment} className="tools-sidebar">
+            <Sidebar as={Menu} animation='overlay' className="tools" icon='labeled' inverted vertical visible width='thin'>
+              <Menu.Item as='a' className="tool tool-pencil">
+                <img src={require('../icons/pencil.png')} alt="pencil" />
               </Menu.Item>
-              <Menu.Item as='a'>
-                <Icon name='gamepad' />
-                Eraser
+              <Menu.Item as='a' className="tool tool-eraser">
+                <img src={require('../icons/eraser.png')} alt="eraser" />
               </Menu.Item>
-              <Menu.Item as='a'>
-                <Icon name='camera' />
-                Line
+              <Menu.Item as='a' className="tool tool-line">
+                <img src={require('../icons/line.png')} alt="line" />
               </Menu.Item>
             </Sidebar>
 

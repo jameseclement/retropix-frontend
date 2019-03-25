@@ -69,6 +69,19 @@ h1, h2, h3, h4, h5, h6 {
 
 /* buttons */
 
+/* tools/sidebar */
+
+.tools.ui.menu {
+  background: $gray;
+}
+
+.tool img {
+  // overriding semantic's specific selectors
+  margin: 0 auto !important;
+  padding: 0 !important;
+  width: 40% !important;
+}
+
 /* modal */
 
 /* misc */
