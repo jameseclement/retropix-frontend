@@ -71,6 +71,13 @@ class ToolContainer extends Component {
             value={this.props.size}
           />
         </div>
+        <div className="tool" style={{ backgroundColor: this.props.color }}>
+          <Grid columns={6} padded>
+            <Grid.Column />
+            <Grid.Column />
+            <Grid.Column />
+          </Grid>
+        </div>
         <div className="tool">
           <Grid columns={4} padded>
             {this.colors.map(color => (
