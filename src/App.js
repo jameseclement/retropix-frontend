@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.scss";
-import Nav from "./containers/Nav";
-import Main from "./containers/Main";
+// import Nav from "./containers/Nav";
+// import Main from "./containers/Main";
+import Demo from "./components/Demo";
 import Adapter from "./Adapter";
 
 class App extends Component {
@@ -37,10 +36,11 @@ class App extends Component {
   }
 
   render() {
+    // <Nav />
+    // <Main doc={this.state.doc} />
     return (
       <div>
-        <Nav />
-        <Main doc={this.state.doc} />
+        <Demo />
       </div>
     )
   }
