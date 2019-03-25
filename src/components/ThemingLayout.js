@@ -3,23 +3,6 @@ import { Button, Container, Divider, Grid, Header, Image, Menu, Dropdown, Modal,
 
 const ThemingLayout = () => (
   <Container style={{ marginTop: '3em' }}>
-    <Menu>
-      <Dropdown item text='File'>
-        <Dropdown.Menu>
-          <Dropdown.Item icon='edit' text='Edit Profile' />
-          <Dropdown.Item icon='globe' text='Choose Language' />
-          <Dropdown.Item icon='settings' text='Account Settings' />
-        </Dropdown.Menu>
-      </Dropdown>
-      <Dropdown item text='Edit'>
-        <Dropdown.Menu>
-          <Dropdown.Item icon='edit' text='Edit Profile' />
-          <Dropdown.Item icon='globe' text='Choose Language' />
-          <Dropdown.Item icon='settings' text='Account Settings' />
-        </Dropdown.Menu>
-      </Dropdown>
-    </Menu>
-
     <Header as='h1'>Theming Examples</Header>
 
     <Header as='h2' dividing>

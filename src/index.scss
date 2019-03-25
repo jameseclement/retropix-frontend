@@ -2,8 +2,10 @@
 
 @font-face {
   font-family: 'ChiKareGo2'; 
-  src: url(./ChiKareGo2.woff2) format('woff2'), /* Super Modern Browsers */
-       url(./ChiKareGo2.ttf)  format('truetype'), /* Safari, Android, iOS */
+  src: url(./fonts/ChiKareGo2.woff2) format('woff2'), /* Super Modern Browsers */
+       url(./fonts/ChiKareGo2.woff2) format('woff2'), /* Super Modern Browsers */
+       url(./fonts/ChiKareGo2.woff) format('woff'), /* Pretty Modern Browsers */
+       url(./fonts/ChiKareGo2.ttf)  format('truetype'), /* Safari, Android, iOS */
 }
 
 $font: "ChiKareGo2" !default;
@@ -68,3 +70,6 @@ h1, h2, h3, h4, h5, h6 {
 /* buttons */
 
 /* modal */
+
+/* misc */
+
