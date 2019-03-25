@@ -71,15 +71,34 @@ h1, h2, h3, h4, h5, h6 {
 
 /* tools/sidebar */
 
-.tools.ui.menu {
+$tool-border-width: 4px;
+
+.tools {
   background: $gray;
+  display: flex;
+  flex-wrap: wrap;
+  border: $tool-border-width solid $black;
 }
 
-.tool img {
-  // overriding semantic's specific selectors
-  margin: 0 auto !important;
-  padding: 0 !important;
-  width: 40% !important;
+.tool {
+  width: 100%;
+  display: block;
+  border-bottom: $tool-border-width solid $black;
+  padding: 4px;
+  text-align: center;
+  transition: background 0.1s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: lighten($gray, 10%);
+  }
+
+  img {
+    margin: 0 auto;
+  }
 }
 
 /* modal */
