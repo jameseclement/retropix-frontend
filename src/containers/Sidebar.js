@@ -5,10 +5,10 @@ import ColorContainer from "./ColorContainer";
 class Sidebar extends Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <ToolContainer />
         <ColorContainer />
-      </div>
+      </React.Fragment>
     );
   }
 }

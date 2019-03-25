@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-// import Nav from "./containers/Nav";
-// import Main from "./containers/Main";
+import { Grid } from "semantic-ui-react";
+
+import Nav from "./containers/Nav";
+import Main from "./containers/Main";
+import Sidebar from "./containers/Sidebar";
 import Demo from "./components/Demo";
 import Adapter from "./Adapter";
 
@@ -36,11 +39,17 @@ class App extends Component {
   }
 
   render() {
-    // <Nav />
-    // <Main doc={this.state.doc} />
     return (
       <div>
-        <Demo />
+        <Nav />
+        <Grid>
+          <Grid.Column width={2}>
+            <Sidebar /> 
+          </Grid.Column>
+          <Grid.Column width={10}>
+            <Main doc={this.state.doc} />
+          </Grid.Column>
+        </Grid>
       </div>
     )
   }
