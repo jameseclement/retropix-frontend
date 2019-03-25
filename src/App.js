@@ -21,6 +21,13 @@ class App extends Component {
     };
   }
 
+  handleToolClick = e => {
+    console.log(e.currentTarget);
+    this.setState({
+      tool: e.currentTarget.dataset.tool
+    });
+  };
+
   componentDidMount() {
     // this.loadUser()
     this.loadDoc();
@@ -44,14 +51,14 @@ class App extends Component {
         <Nav />
         <Grid>
           <Grid.Column width={2}>
-            <Sidebar /> 
+            <Sidebar handleToolClick={this.handleToolClick} />
           </Grid.Column>
           <Grid.Column width={10}>
-            <Main doc={this.state.doc} />
+            <Main doc={this.state.doc} tool={this.state.tool} />
           </Grid.Column>
         </Grid>
       </div>
-    )
+    );
   }
 }
 

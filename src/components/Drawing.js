@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Konva from "react-konva";
-import {isEmpty} from 'lodash';
+import { isEmpty } from "lodash";
 
 class Drawing extends Component {
   constructor(props) {
@@ -9,8 +9,7 @@ class Drawing extends Component {
     this.imageLoaded = false;
 
     this.state = {
-      isDrawing: false,
-      mode: "brush"
+      isDrawing: false
     };
   }
 
@@ -27,22 +26,22 @@ class Drawing extends Component {
     // console.log('didUpdate', prevProps, this.props)
     if (this.props.doc !== prevProps.doc) {
       // this.renderImage()
-      this.handleMouseMove()
+      this.handleMouseMove();
     }
   }
 
   renderImage() {
-    const {ctx} = this.state;
-    const {doc} = this.props;
+    const { ctx } = this.state;
+    const { doc } = this.props;
     const img = new Image();
-    console.log('renderImage', doc)
+    console.log("renderImage", doc);
 
     img.onload = () => {
-      ctx.clearRect(0, 0, this.props.width, this.props.height)
-      ctx.drawImage(img, 0, 0)
-    }
-    
-    img.src = doc.current_version.data
+      ctx.clearRect(0, 0, this.props.width, this.props.height);
+      ctx.drawImage(img, 0, 0);
+    };
+
+    img.src = doc.current_version.data;
   }
 
   handleMouseDown = () => {
@@ -61,16 +60,16 @@ class Drawing extends Component {
 
   handleMouseMove = () => {
     const { ctx, isDrawing, mode } = this.state;
-    const {doc} = this.props;
-    
+    const { doc } = this.props;
+
     // load the image
     if (!isEmpty(doc) && !this.imageLoaded) {
       const img = new Image();
       img.onload = () => {
-        ctx.clearRect(0, 0, this.props.width, this.props.height)
-        ctx.drawImage(img, 0, 0)
-      }
-      img.src = doc.current_version.data
+        ctx.clearRect(0, 0, this.props.width, this.props.height);
+        ctx.drawImage(img, 0, 0);
+      };
+      img.src = doc.current_version.data;
       this.imageLoaded = true;
     }
 
@@ -82,9 +81,9 @@ class Drawing extends Component {
     ctx.lineJoin = "round";
     ctx.lineWidth = 5;
 
-    if (mode === "brush") {
+    if (this.props.tool === "brush") {
       ctx.globalCompositeOperation = "source-over";
-    } else if (mode === "eraser") {
+    } else if (this.props.tool === "eraser") {
       ctx.globalCompositeOperation = "destination-out";
     }
     ctx.beginPath();
@@ -111,8 +110,8 @@ class Drawing extends Component {
   };
 
   render() {
-    let {canvas, ctx} = this.state;
-    console.log(this.state)
+    let { canvas, ctx } = this.state;
+    console.log(this.state);
 
     // if (!isEmpty(doc)) {
     //   console.log("not empty doc", doc);

@@ -4,7 +4,14 @@ import Canvas from "../components/Canvas";
 
 class Main extends Component {
   render() {
-    return <Canvas doc={this.props.doc} width={700} height={400} />;
+    return (
+      <Canvas
+        doc={this.props.doc}
+        tool={this.props.tool}
+        width={700}
+        height={400}
+      />
+    );
   }
 }
 
