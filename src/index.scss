@@ -1,14 +1,70 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* fonts/images */
+
+@font-face {
+  font-family: 'ChiKareGo2'; 
+  src: url(./ChiKareGo2.woff2) format('woff2'), /* Super Modern Browsers */
+       url(./ChiKareGo2.ttf)  format('truetype'), /* Safari, Android, iOS */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+$font: "ChiKareGo2" !default;
+$font-alt: "Press Start 2P" !default;
+$font-size: 16px !default;
+
+$font-family: $font, $font-alt, Menlo, Monaco, "Courier New", "Courier", monospace !default;
+$font-family-alt: $font-alt, $font, Menlo, Monaco, "Courier New", "Courier", monospace !default;
+
+$cursor: url(../assets/cursor.png) !default;
+$cursor-click: url(../assets/cursor-click.png) !default;
+$cursor-pencil: url(../assets/cursor-pencil.png) !default;
+
+/* sizes */
+
+$border-width: 4px !default;
+$dialog-padding: 6px !default;
+
+/* colors */
+
+$bg: #fff !default;
+$fg: #000 !default;
+
+$gray: #cbcbcb !default;
+$red: #ef1414 !default;
+$orange: #ff7d3c !default;
+
+$black: #000000 !default;
+$white: #ffffff !default;
+$gray: #cbcbcb !default;
+$gray-dark: #515151 !default;
+$red: #ec1a23 !default;
+$orange: #fd7d45 !default;
+$purple: #7c25fb !default;
+$pink: #fc28fc !default;
+$green-dark: #0f7c11 !default;
+$green: #29fd2f !default;
+$blue: #0b24fb !default;
+$blue-light: #2dfffe !default;
+$brown-light: #996c20 !default;
+$brown-dark: #64450a !default;
+$yellow: #fffd38 !default;
+$tan: #fec395 !default;
+
+$primary: $red !default;
+
+/* base */
+
+html, body {
+  font-family: $font-family !important;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-alt !important;
+  font-weight: 700;
+}
+
+.ui {
+  font-family: $font-family !important;
+}
+
+/* buttons */
+
+/* modal */
