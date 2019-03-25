@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Grid } from "semantic-ui-react";
 
 class ToolContainer extends Component {
   constructor() {
@@ -7,7 +8,6 @@ class ToolContainer extends Component {
       "red",
       "orange",
       "yellow",
-      "olive",
       "green",
       "teal",
       "blue",
@@ -70,15 +70,17 @@ class ToolContainer extends Component {
             max="30"
             value={this.props.size}
           />
-          <select onChange={this.props.handleColorChange}>
-            {this.colors.map(color => {
-              return (
-                <option selected={this.props.color === color} value={color}>
-                  {color}
-                </option>
-              );
-            })}
-          </select>
+        </div>
+        <div className="tool">
+          <Grid columns={4} padded>
+            {this.colors.map(color => (
+              <Grid.Column
+                onClick={this.props.handleColorChange}
+                color={color}
+                key={color}
+              />
+            ))}
+          </Grid>
         </div>
       </div>
     );

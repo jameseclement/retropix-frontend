@@ -36,9 +36,10 @@ class App extends Component {
   };
 
   handleColorChange = e => {
-    console.log(e.currentTarget.value);
+    e.persist();
+    console.log(e.target.classList[0]);
     this.setState({
-      color: e.currentTarget.value
+      color: e.target.classList[0]
     });
   };
 
@@ -57,12 +58,12 @@ class App extends Component {
     Adapter.getDoc(this.state.user.id, this.state.doc_id).then(doc =>
       this.setState({ doc })
     );
-  }
+  };
 
   saveVersion = (docId, versionData) => {
     const userId = this.state.user.id;
     Adapter.saveVersion(userId, docId, versionData);
-  }
+  };
 
   render() {
     return (
