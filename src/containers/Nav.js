@@ -31,7 +31,11 @@ class Nav extends Component {
               icon="save"
               text="Save..."
             />
-            <Dropdown.Item icon="save outline" text="Save As..." />
+            <Dropdown.Item
+              onClick={this.props.handleSaveAsClick}
+              icon="save outline"
+              text="Save As..."
+            />
             <Dropdown.Item icon="power off" text="Logout..." />
           </Dropdown.Menu>
         </Dropdown>
