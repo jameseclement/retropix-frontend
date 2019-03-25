@@ -37,9 +37,9 @@ class App extends Component {
 
   handleColorChange = e => {
     e.persist();
-    console.log(e.target.classList[0]);
+    console.log(e.target.style.backgroundColor);
     this.setState({
-      color: e.target.classList[0]
+      color: e.target.style.backgroundColor
     });
   };
 
