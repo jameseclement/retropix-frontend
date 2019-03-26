@@ -132,10 +132,23 @@ $tool-border-width: 4px;
 
 /* modal */
 
-/* canvas */
+/* versions */
 
-.canvas-container {
-  // border: 2px solid #000;
+.version-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+  height: 108px;
+}
+
+.version-thumb {
+  display: inline-block;
+  border: 2px solid $gray-dark;
+  margin: 0 6px 6px 0;
+  height: 100%;
+
+  img {height: 100%;}
 }
 
 /* misc */

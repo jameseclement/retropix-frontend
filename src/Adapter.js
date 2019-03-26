@@ -4,9 +4,13 @@ class Adapter {
   }
 
   static getDoc(userId, id) {
-    return fetch(`${Adapter.api}/users/${userId}/documents/${id}`).then(res =>
-      res.json()
-    );
+    return fetch(`${Adapter.api}/users/${userId}/documents/${id}`)
+      .then(res => res.json());
+  }
+
+  static getDocVersions(userId, id) {
+    return fetch(`${Adapter.api}/users/${userId}/documents/${id}/versions`)
+      .then(res => res.json());
   }
 
   static saveVersion(userId, docId, versionData) {
@@ -17,9 +21,13 @@ class Adapter {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ data: versionData })
-    })
-      .then(res => res.json())
-      .then(json => console.log(json));
+    }).then(res => res.json());
+  }
+
+  static revertToVersion(userId, docId, versionId) {
+    return fetch(`${Adapter.api}/users/${userId}/documents/${docId}/revert/${versionId}`, 
+      {method: "PATCH"}
+    ).then(res => res.json());
   }
 }
 

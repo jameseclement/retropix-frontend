@@ -1,9 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
-class VersionThumbnail extends Component {
-  render() {
-    return <div />;
-  }
-}
+const VersionThumbnail = (props) => {
+  return (
+    <li className="version-thumb">
+      <img 
+        src={props.version.data} 
+        alt={props.version.id} 
+        onClick={() => props.handleVersionSelect(props.version)}
+      />
+    </li>
+  );
+};
 
 export default VersionThumbnail;
