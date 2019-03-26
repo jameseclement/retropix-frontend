@@ -67,6 +67,7 @@ class ToolContainer extends Component {
           <img src={require("../icons/line.png")} alt="line" />
         </a>
         <div className="tool">
+          <label> Brush Thickness </label>
           <input
             onChange={this.props.handleSizeChange}
             type="range"
