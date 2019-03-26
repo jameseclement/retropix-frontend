@@ -38,10 +38,11 @@ class Nav extends Component {
               icon="save"
               text="Save..."
             />
+
             <Dropdown.Item
-              onClick={this.props.handleSaveAsClick}
-              icon="save outline"
-              text="Save As..."
+              onClick={this.props.handleDeleteSaveClick}
+              icon="undo"
+              text="Delete Last Save"
             />
             <Dropdown.Item
               as={Link}

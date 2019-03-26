@@ -29,28 +29,29 @@ class App extends Component {
   }
 
   handleToolClick = e => {
-    let tool, color = this.state.color;
+    let tool,
+      color = this.state.color;
 
     switch (e.currentTarget.dataset.tool) {
-      case 'pencil':
+      case "pencil":
         tool = Tools.pencil;
         break;
-      case 'line':
+      case "line":
         tool = Tools.Line;
         break;
-      case 'rectangle':
+      case "rectangle":
         tool = Tools.Rectangle;
         break;
-      case 'circle':
+      case "circle":
         tool = Tools.Circle;
         break;
-      case 'eraser':
+      case "eraser":
         tool = Tools.Pencil;
-        color = 'white';
+        color = "white";
         break;
     }
-    
-    this.setState({tool, color});
+
+    this.setState({ tool, color });
   };
 
   handleSizeChange = e => {
@@ -114,6 +115,10 @@ class App extends Component {
     console.log("Clicked Music in Menu");
   };
 
+  handleDeleteSaveClick = () => {
+    console.log("Clicked Delete Last Save in Menu");
+  };
+
   render() {
     return (
       <Router>
@@ -124,6 +129,7 @@ class App extends Component {
           handleSaveAsClick={this.handleSaveAsClick}
           handleLoginLogoutClick={this.handleLoginLogoutClick}
           handleMusicClick={this.handleMusicClick}
+          handleDeleteSaveClick={this.handleDeleteSaveClick}
         />
         <Grid>
           <Grid.Column width={2}>
