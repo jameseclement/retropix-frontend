@@ -64,7 +64,7 @@ class Document extends Component {
 
   revertToVersion() {
     const userId = this.props.user.id;
-    const docId = this.state.id;
+    const docId = this.state.docId;
     const versionId = this.state.version.id;
     
     Adapter.revertToVersion(userId, docId, versionId)
@@ -128,9 +128,29 @@ class Document extends Component {
     this.setState({version})
   };
 
+  handleSaveClick = () => {
+    this.saveVersion();
+  };
+
+  handleUndoClick = () => {
+    this.sketch.current.undo();
+  };
+
+  handleRedoClick = () => {
+    this.sketch.current.redo();
+  };
+
+  handleRevertClick = () => {
+    this.revertToVersion();
+  };
+
+  handleDeleteSaveClick = () => {
+    console.log("Clicked Delete Last Save in Menu");
+  };
+
   render() {
     return (
-      <Grid>
+      <Grid className="grid-container">
         <Grid.Column width={2}>
           <Sidebar
             handleToolClick={this.handleToolClick}
@@ -141,7 +161,7 @@ class Document extends Component {
             color={this.state.color}
           />
         </Grid.Column>
-        <Grid.Column width={10}>
+        <Grid.Column width={8} className="canvas-container">
           <div className="main">
             <SketchField 
               width='700px' 
@@ -156,9 +176,38 @@ class Document extends Component {
               backgroundColor='white'
             />
             <VersionContainer 
-              versions={[]}
-              handleVersionSelect={this.props.handleVersionSelect}
+              versions={this.state.versions}
+              handleVersionSelect={this.handleVersionSelect}
             />
+          </div>
+        </Grid.Column>
+        <Grid.Column width={2}>
+          <div className="sidebar tools">
+            <a href="#" className="tool" 
+              data-tool="save"
+              onClick={this.handleSaveClick}>
+              Save
+            </a>
+            <a href="#" className="tool" 
+              data-tool="undo"
+              onClick={this.handleUndoClick}>
+              Undo
+            </a>
+            <a href="#" className="tool" 
+              data-tool="redo"
+              onClick={this.handleRedoClick}>
+              Redo
+            </a>
+            <a href="#" className="tool" 
+              data-tool="revert"
+              onClick={this.handleRevertClick}>
+              Revert
+            </a>
+            <a href="#" className="tool"
+              data-tool="delete"
+              onClick={this.handleDeleteSaveClick}>
+              Delete
+            </a>
           </div>
         </Grid.Column>
       </Grid>

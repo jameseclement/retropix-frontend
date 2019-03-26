@@ -75,6 +75,14 @@ h6 {
   font-family: $font-family !important;
 }
 
+.grid-container {
+  justify-content: center;
+}
+
+.canvas-container {
+  min-width: 780px !important;
+}
+
 /* buttons */
 
 /* tools/sidebar */

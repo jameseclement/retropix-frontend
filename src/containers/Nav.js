@@ -36,23 +36,6 @@ class Nav extends Component {
               text="Open..."
             />
             <Dropdown.Item
-              onClick={this.props.handleSaveClick}
-              icon="save"
-              text="Save..."
-            />
-
-            <Dropdown.Item
-              onClick={this.props.handleDeleteSaveClick}
-              icon="delete"
-              text="Delete Last Save"
-            />
-
-            <Dropdown.Item
-              onClick={this.props.handleRevertClick}
-              icon="undo"
-              text="Revert to Selected Version"
-            />
-            <Dropdown.Item
               as={Link}
               to="/login"
               onClick={this.props.handleLoginLogoutClick}
