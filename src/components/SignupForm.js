@@ -4,16 +4,20 @@ import { Button, Checkbox, Form } from "semantic-ui-react";
 class SignupForm extends Component {
   render() {
     return (
-      <Form>
+      <Form className="myForm">
         <Form.Field>
-          <label>Username</label>
+          <label>Create Username</label>
           <input placeholder="UserName" />
         </Form.Field>
         <Form.Field>
-          <label>Password</label>
+          <label>Create Password</label>
           <input type="password" placeholder="Password" />
         </Form.Field>
-        <Button type="submit">Submit</Button>
+        <Form.Field>
+          <label>Verify Password</label>
+          <input type="password" placeholder="Password" />
+        </Form.Field>
+        <Button type="submit">Create User</Button>
       </Form>
     );
   }

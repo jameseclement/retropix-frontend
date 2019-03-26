@@ -3,20 +3,17 @@ import { Button, Form } from "semantic-ui-react";
 class LoginForm extends Component {
   render() {
     return (
-      <Form>
+      <Form className="myForm">
         <Form.Field>
-          <label>Create Username</label>
+          <label>Username</label>
           <input placeholder="UserName" />
         </Form.Field>
         <Form.Field>
-          <label>Create Password</label>
+          <label>Password</label>
           <input type="password" placeholder="Password" />
         </Form.Field>
-        <Form.Field>
-          <label>Verify Password</label>
-          <input type="password" placeholder="Password" />
-        </Form.Field>
-        <Button type="submit">Create User</Button>
+
+        <Button type="submit">Login</Button>
       </Form>
     );
   }
