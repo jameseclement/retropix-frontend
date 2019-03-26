@@ -108,6 +108,15 @@ class App extends Component {
       })
   };
 
+  revertToVersion(versionId) {
+    const userId = this.state.user.id;
+    const docId = this.state.doc.id;
+    Adapter.revertToVersion(userId, docId, versionId)
+      .then((versionsDeleted) => {
+        this.loadVersions()
+      })
+  }
+
   handleNewClick = () => {
     console.log("Clicked New in Menu");
   };

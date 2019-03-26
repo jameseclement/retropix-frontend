@@ -23,6 +23,12 @@ class Adapter {
       body: JSON.stringify({ data: versionData })
     }).then(res => res.json());
   }
+
+  static revertToVersion(userId, docId, versionId) {
+    return fetch(`${Adapter.api}/users/${userId}/documents/${docId}/versions`, 
+      {method: "PATCH"}
+    ).then(res => res.json());
+  }
 }
 
 Adapter.api = "http://localhost:3000";
