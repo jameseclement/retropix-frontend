@@ -71,20 +71,27 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Nav
-          handleNewClick={this.handleNewClick}
-          handleOpenClick={this.handleOpenClick}
-          handleSaveClick={this.handleSaveClick}
-          handleSaveAsClick={this.handleSaveAsClick}
-          handleLoginLogoutClick={this.handleLoginLogoutClick}
-          handleMusicClick={this.handleMusicClick}
-          handleDeleteSaveClick={this.handleDeleteSaveClick}
-          handleRevertClick={this.handleRevertClick} />
+        <Route path="/users/:id"
+          render={props => 
+            <Nav {...props}
+              handleNewClick={this.handleNewClick}
+              handleOpenClick={this.handleOpenClick}
+              handleSaveClick={this.handleSaveClick}
+              handleSaveAsClick={this.handleSaveAsClick}
+              handleLoginLogoutClick={this.handleLoginLogoutClick}
+              handleMusicClick={this.handleMusicClick}
+              handleDeleteSaveClick={this.handleDeleteSaveClick}
+              handleRevertClick={this.handleRevertClick} />
+          }
+        />
         <Route
           exact path="/users/:id/documents/:id"
           render={props => <Document {...props} user={this.state.user} />}/>
         <Route
-          path="/users/:id"
+          exact path="/users/:id"
+          render={props => <DocsContainer {...props} user={this.state.user} />} />
+        <Route
+          exact path="/users/:id/documents"
           render={props => <DocsContainer {...props} user={this.state.user} />} />
         <Route 
           path="/login" 

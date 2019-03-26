@@ -15,6 +15,8 @@ import {
 
 class Nav extends Component {
   render() {
+    const params = this.props.match.params;
+
     return (
       <Menu>
         <Dropdown item text="File" className="file">
@@ -28,7 +30,7 @@ class Nav extends Component {
             />
             <Dropdown.Item
               as={Link}
-              to="/users/:id/open"
+              to={`/users/${params.id}/documents`}
               onClick={this.props.handleOpenClick}
               icon="folder open outline"
               text="Open..."
