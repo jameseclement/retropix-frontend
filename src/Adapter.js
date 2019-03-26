@@ -3,6 +3,10 @@ class Adapter {
     return fetch(`${Adapter.api}/users/${id}`).then(res => res.json());
   }
 
+  static getUsers() {
+    return fetch(`${Adapter.api}/users`).then(res => res.json());
+  }
+
   static newDoc(userId) {
     return fetch(`${Adapter.api}/users/${userId}/documents/`, {
       method: "POST",
@@ -39,8 +43,8 @@ class Adapter {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({title})
-    })
+      body: JSON.stringify({ title })
+    });
   }
 
   static saveVersion(userId, docId, versionData) {

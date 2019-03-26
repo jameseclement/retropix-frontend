@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import { Button, Form } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+
 class LoginForm extends Component {
   render() {
     return (
-      <Form className="myForm">
-        <Form.Field>
-          <label>Username</label>
-          <input placeholder="UserName" />
-        </Form.Field>
-        <Form.Field>
-          <label>Password</label>
-          <input type="password" placeholder="Password" />
-        </Form.Field>
-
-        <Button type="submit">Login</Button>
-      </Form>
+      <select
+        placeholder="Select Your User ID"
+        onChange={this.props.handleUserSelect}
+      >
+        {this.props.users.map(u => {
+          return (
+            <option key={u.id} value={u.id}>
+              {u.username}
+            </option>
+          );
+        })}
+      </select>
     );
   }
 }

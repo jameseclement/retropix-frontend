@@ -12,9 +12,12 @@ import VersionContainer from "./VersionContainer";
 class Document extends Component {
   constructor(props) {
     super(props);
+
     const docId = props.match.params.id;
+    const userId = props.match.params.user_id;
 
     this.state = {
+      userId,
       docId,
       doc: {},
       versions: [],
@@ -38,7 +41,7 @@ class Document extends Component {
   }
 
   loadDoc() {
-    Adapter.getDoc(this.props.user.id, this.state.docId).then(doc =>
+    Adapter.getDoc(this.state.userId, this.state.docId).then(doc =>
       this.setState({
         doc,
         version: doc.current_version,
@@ -48,12 +51,12 @@ class Document extends Component {
   }
 
   deleteDoc = () => {
-    Adapter.deleteDoc(this.props.user.id, this.state.docId);
+    Adapter.deleteDoc(this.state.userId, this.state.docId);
     this.props.handleDelete(this.state.docs);
   };
 
   loadVersions() {
-    Adapter.getDocVersions(this.props.user.id, this.state.docId).then(
+    Adapter.getDocVersions(this.state.userId, this.state.docId).then(
       versions => {
         this.setState({ versions });
       }
@@ -61,7 +64,7 @@ class Document extends Component {
   }
 
   saveVersion() {
-    const userId = this.props.user.id;
+    const userId = this.state.userId;
     const docId = this.state.docId;
     const versionData = this.getDataURL();
 
@@ -71,7 +74,7 @@ class Document extends Component {
   }
 
   revertToVersion() {
-    const userId = this.props.user.id;
+    const userId = this.state.userId;
     const docId = this.state.docId;
     const versionId = this.state.version.id;
 
@@ -155,10 +158,10 @@ class Document extends Component {
     this.deleteDoc();
   };
 
-  handleUpdateTitle = (event) => {
+  handleUpdateTitle = event => {
     const title = event.target.value;
-    Adapter.updateDocTitle(this.props.user.id, this.state.doc, title);
-  }
+    Adapter.updateDocTitle(this.state.userId, this.state.doc, title);
+  };
 
   render() {
     return (
@@ -175,11 +178,14 @@ class Document extends Component {
         </Grid.Column>
         <Grid.Column width={8} className="canvas-container">
           <div className="main">
-            <input className="title-field"
-              type="text" name="title" 
-              placeholder="Untitled" 
-              defaultValue={this.state.doc.title} 
-              onBlur={this.handleUpdateTitle} />
+            <input
+              className="title-field"
+              type="text"
+              name="title"
+              placeholder="Untitled"
+              defaultValue={this.state.doc.title}
+              onBlur={this.handleUpdateTitle}
+            />
             <SketchField
               width="700px"
               height="400px"
@@ -233,7 +239,7 @@ class Document extends Component {
               Revert
             </a>
             <Link
-              to={`/users/${this.props.user.id}/documents`}
+              to={`/users/${this.state.userId}/documents`}
               className="tool"
               data-tool="delete"
               onClick={this.handleDeleteClick}

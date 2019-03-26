@@ -7,7 +7,7 @@ import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import DocsContainer from "./containers/DocsContainer";
 import Document from "./containers/Document";
-
+import { map } from "lodash";
 import {
   BrowserRouter as Router,
   Route,
@@ -25,17 +25,37 @@ class App extends Component {
     this.state = {
       user: { id: 1, documents: [] },
       doc_id: 1,
-      deletedDocs: []
+      deletedDocs: [],
+      users: []
     };
   }
 
   componentDidMount() {
-    this.loadUser();
+    this.loadUsers();
+    // this.loadUser();
   }
 
-  loadUser() {
-    Adapter.getUser(this.userId).then(user => this.setState({ user }));
+  handleUserSelect = e => {
+    const id = e.target.value;
+    window.location.href = `http://localhost:3001/users/${id}`;
+  };
+
+  loadUsers() {
+    return Adapter.getUsers().then(users => {
+      // const users = userList.map(user => {
+      //   return {
+      //     key: user.id,
+      //     text: user.username,
+      //     value: user.id
+      //   };
+      // });
+      this.setState({ users });
+    });
   }
+
+  // loadUser() {
+  //   Adapter.getUser(this.userId).then(user => this.setState({ user }));
+  // }
 
   newDoc = () => {
     Adapter.newDoc(this.userId).then(doc => {
@@ -96,32 +116,33 @@ class App extends Component {
         />
         <Route
           exact
-          path="/users/:id/documents/:id"
-          render={props => <Document {...props} user={this.state.user} />}
+          path="/users/:user_id/documents/:id"
+          render={props => <Document {...props} />}
         />
         <Route
           exact
           path="/users/:id"
           render={props => (
-            <DocsContainer
-              {...props}
-              user={this.state.user}
-              deletedDocs={this.state.deletedDocs}
-            />
+            <DocsContainer {...props} deletedDocs={this.state.deletedDocs} />
           )}
         />
         <Route
           exact
           path="/users/:id/documents"
           render={props => (
-            <DocsContainer
+            <DocsContainer {...props} deletedDocs={this.state.deletedDocs} />
+          )}
+        />
+        <Route
+          path="/login"
+          render={props => (
+            <LoginForm
               {...props}
-              user={this.state.user}
-              deletedDocs={this.state.deletedDocs}
+              users={this.state.users}
+              handleUserSelect={this.handleUserSelect}
             />
           )}
         />
-        <Route path="/login" component={LoginForm} />
         <Route path="/signup" component={SignupForm} />
       </Router>
     );
