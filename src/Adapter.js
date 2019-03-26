@@ -3,14 +3,33 @@ class Adapter {
     return fetch(`${Adapter.api}/users/${id}`).then(res => res.json());
   }
 
+  static newDoc(userId) {
+    return fetch(`${Adapter.api}/users/${userId}/documents/`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ title: "New Document" })
+    }).then(res => res.json());
+  }
+
+  static deleteDoc(userId, docId) {
+    return fetch(`${Adapter.api}/users/${userId}/documents/${docId}`, {
+      method: "DELETE"
+    }).then(res => res.json());
+  }
+
   static getDoc(userId, id) {
-    return fetch(`${Adapter.api}/users/${userId}/documents/${id}`)
-      .then(res => res.json());
+    return fetch(`${Adapter.api}/users/${userId}/documents/${id}`).then(res =>
+      res.json()
+    );
   }
 
   static getDocVersions(userId, id) {
-    return fetch(`${Adapter.api}/users/${userId}/documents/${id}/versions`)
-      .then(res => res.json());
+    return fetch(
+      `${Adapter.api}/users/${userId}/documents/${id}/versions`
+    ).then(res => res.json());
   }
 
   static saveVersion(userId, docId, versionData) {
@@ -25,8 +44,9 @@ class Adapter {
   }
 
   static revertToVersion(userId, docId, versionId) {
-    return fetch(`${Adapter.api}/users/${userId}/documents/${docId}/revert/${versionId}`, 
-      {method: "PATCH"}
+    return fetch(
+      `${Adapter.api}/users/${userId}/documents/${docId}/revert/${versionId}`,
+      { method: "PATCH" }
     ).then(res => res.json());
   }
 }

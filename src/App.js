@@ -8,18 +8,24 @@ import SignupForm from "./components/SignupForm";
 import DocsContainer from "./containers/DocsContainer";
 import Document from "./containers/Document";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  withRouter
+} from "react-router-dom";
 
 class App extends Component {
   constructor() {
     super();
-    
+
     this.userId = 1;
     this.main = React.createRef();
 
     this.state = {
       user: { id: 1, documents: [] },
       doc_id: 1,
+      deletedDocs: []
     };
   }
 
@@ -28,12 +34,17 @@ class App extends Component {
   }
 
   loadUser() {
-    Adapter.getUser(this.userId)
-      .then(user => this.setState({ user }));
+    Adapter.getUser(this.userId).then(user => this.setState({ user }));
   }
 
+  newDoc = () => {
+    Adapter.newDoc(this.userId).then(doc => {
+      // this.props.history.push(`/users/${this.user.id}/documents/${doc.id}`);
+    });
+  };
+
   handleNewClick = () => {
-    console.log("Clicked New in Menu");
+    this.newDoc();
   };
 
   handleOpenClick = () => {
@@ -60,8 +71,8 @@ class App extends Component {
     this.setState({ version });
   };
 
-  handleDeleteSaveClick = () => {
-    console.log("Clicked Delete Last Save in Menu");
+  handleDelete = deletedDoc => {
+    this.setState({ deletedDocs: [...this.state.deletedDocs, deletedDoc] });
   };
 
   handleRevertClick = () => {
@@ -71,34 +82,47 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Route path="/users/:id"
-          render={props => 
-            <Nav {...props}
+        <Route
+          path="/users/:id"
+          render={props => (
+            <Nav
+              {...props}
               handleNewClick={this.handleNewClick}
               handleOpenClick={this.handleOpenClick}
-              handleSaveClick={this.handleSaveClick}
-              handleSaveAsClick={this.handleSaveAsClick}
               handleLoginLogoutClick={this.handleLoginLogoutClick}
               handleMusicClick={this.handleMusicClick}
-              handleDeleteSaveClick={this.handleDeleteSaveClick}
-              handleRevertClick={this.handleRevertClick} />
-          }
+            />
+          )}
         />
         <Route
-          exact path="/users/:id/documents/:id"
-          render={props => <Document {...props} user={this.state.user} />}/>
+          exact
+          path="/users/:id/documents/:id"
+          render={props => <Document {...props} user={this.state.user} />}
+        />
         <Route
-          exact path="/users/:id"
-          render={props => <DocsContainer {...props} user={this.state.user} />} />
+          exact
+          path="/users/:id"
+          render={props => (
+            <DocsContainer
+              {...props}
+              user={this.state.user}
+              deletedDocs={this.state.deletedDocs}
+            />
+          )}
+        />
         <Route
-          exact path="/users/:id/documents"
-          render={props => <DocsContainer {...props} user={this.state.user} />} />
-        <Route 
-          path="/login" 
-          component={LoginForm} />
-        <Route 
-          path="/signup"
-          component={SignupForm} />
+          exact
+          path="/users/:id/documents"
+          render={props => (
+            <DocsContainer
+              {...props}
+              user={this.state.user}
+              deletedDocs={this.state.deletedDocs}
+            />
+          )}
+        />
+        <Route path="/login" component={LoginForm} />
+        <Route path="/signup" component={SignupForm} />
       </Router>
     );
   }

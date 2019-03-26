@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SketchField, Tools } from "react-sketch";
 import { Grid } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 import Adapter from "../Adapter";
 
@@ -45,6 +46,11 @@ class Document extends Component {
       })
     );
   }
+
+  deleteDoc = () => {
+    Adapter.deleteDoc(this.props.user.id, this.state.docId);
+    this.props.handleDelete(this.state.docs);
+  };
 
   loadVersions() {
     Adapter.getDocVersions(this.props.user.id, this.state.docId).then(
@@ -145,8 +151,8 @@ class Document extends Component {
     this.revertToVersion();
   };
 
-  handleDeleteSaveClick = () => {
-    console.log("Clicked Delete Last Save in Menu");
+  handleDeleteClick = () => {
+    this.deleteDoc();
   };
 
   render() {
@@ -216,14 +222,14 @@ class Document extends Component {
             >
               Revert
             </a>
-            <a
-              href="#"
+            <Link
+              to={`/users/${this.props.user.id}/documents`}
               className="tool"
               data-tool="delete"
-              onClick={this.handleDeleteSaveClick}
+              onClick={this.handleDeleteClick}
             >
               Delete
-            </a>
+            </Link>
           </div>
         </Grid.Column>
       </Grid>
