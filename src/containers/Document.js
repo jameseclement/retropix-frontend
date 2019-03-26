@@ -155,6 +155,11 @@ class Document extends Component {
     this.deleteDoc();
   };
 
+  handleUpdateTitle = (event) => {
+    const title = event.target.value;
+    Adapter.updateDocTitle(this.props.user.id, this.state.doc, title);
+  }
+
   render() {
     return (
       <Grid className="grid-container">
@@ -170,6 +175,13 @@ class Document extends Component {
         </Grid.Column>
         <Grid.Column width={8} className="canvas-container">
           <div className="main">
+            <div className="ui input">
+              <input className="title-field"
+                type="text" name="title" 
+                placeholder="Untitled" 
+                defaultValue={this.state.doc.title} 
+                onBlur={this.handleUpdateTitle} />
+            </div>
             <SketchField
               width="700px"
               height="400px"
