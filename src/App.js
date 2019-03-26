@@ -32,28 +32,29 @@ class App extends Component {
   }
 
   handleToolClick = e => {
-    let tool, color = this.state.color;
+    let tool,
+      color = this.state.color;
 
     switch (e.currentTarget.dataset.tool) {
-      case 'pencil':
+      case "pencil":
         tool = Tools.pencil;
         break;
-      case 'line':
+      case "line":
         tool = Tools.Line;
         break;
-      case 'rectangle':
+      case "rectangle":
         tool = Tools.Rectangle;
         break;
-      case 'circle':
+      case "circle":
         tool = Tools.Circle;
         break;
-      case 'eraser':
+      case "eraser":
         tool = Tools.Pencil;
-        color = 'white';
+        color = "white";
         break;
     }
-    
-    this.setState({tool, color});
+
+    this.setState({ tool, color });
   };
 
   handleSizeChange = e => {
@@ -108,9 +109,11 @@ class App extends Component {
       })
   };
 
-  revertToVersion(versionId) {
+  revertToVersion() {
     const userId = this.state.user.id;
     const docId = this.state.doc.id;
+    const versionId = this.state.version.id;
+    
     Adapter.revertToVersion(userId, docId, versionId)
       .then((versionsDeleted) => {
         this.loadVersions()
@@ -143,7 +146,15 @@ class App extends Component {
 
   handleVersionSelect = version => {
     this.setState({version})
-  }
+  };
+
+  handleDeleteSaveClick = () => {
+    console.log("Clicked Delete Last Save in Menu");
+  };
+
+  handleRevertClick = () => {
+    this.revertToVersion();
+  };
 
   render() {
     return (
@@ -155,6 +166,8 @@ class App extends Component {
           handleSaveAsClick={this.handleSaveAsClick}
           handleLoginLogoutClick={this.handleLoginLogoutClick}
           handleMusicClick={this.handleMusicClick}
+          handleDeleteSaveClick={this.handleDeleteSaveClick}
+          handleRevertClick={this.handleRevertClick}
         />
         <Grid>
           <Grid.Column width={2}>

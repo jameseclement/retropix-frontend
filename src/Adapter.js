@@ -25,7 +25,7 @@ class Adapter {
   }
 
   static revertToVersion(userId, docId, versionId) {
-    return fetch(`${Adapter.api}/users/${userId}/documents/${docId}/versions`, 
+    return fetch(`${Adapter.api}/users/${userId}/documents/${docId}/revert/${versionId}`, 
       {method: "PATCH"}
     ).then(res => res.json());
   }
