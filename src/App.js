@@ -18,6 +18,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 class App extends Component {
   constructor() {
     super();
+    this.main = React.createRef();
     this.state = {
       user: { id: 1 },
       doc_id: 1,
@@ -103,7 +104,9 @@ class App extends Component {
   };
 
   handleSaveClick = () => {
-    this.saveVersion();
+    // this.saveVersion();
+    // console.log(this.main, this.main.current);
+    this.main.current.saveCurrentVersion();
   };
 
   handleSaveAsClick = () => {
@@ -150,7 +153,9 @@ class App extends Component {
               render={() => (
                 <React.Fragment>
                   <Main
+                    ref={this.main}
                     doc={this.state.doc}
+                    user={this.state.user}
                     version={this.state.version}
                     tool={this.state.tool}
                     color={this.state.color}

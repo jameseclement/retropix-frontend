@@ -18,8 +18,6 @@ class Adapter {
       },
       body: JSON.stringify({ data: versionData })
     })
-      .then(res => res.json())
-      .then(json => console.log(json));
   }
 }
 
