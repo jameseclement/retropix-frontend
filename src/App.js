@@ -17,8 +17,10 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 class App extends Component {
   constructor() {
     super();
+    this.userId = 1;
+
     this.state = {
-      user: { id: 1 },
+      user: { id: 1, documents: [] },
       doc_id: 1,
       doc: {},
       version: {},
@@ -70,14 +72,12 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // this.loadUser()
+    this.loadUser();
     this.loadDoc();
   }
 
   loadUser() {
-    this.setState({
-      user: { id: 1 }
-    });
+    Adapter.getUser(this.userId).then(user => this.setState({ user }));
   }
 
   loadDoc = id => {
@@ -90,6 +90,10 @@ class App extends Component {
     const userId = this.state.user.id;
     Adapter.saveVersion(userId, docId, versionData);
   };
+
+  // handleDocSelect = doc => {
+  //  redirect
+  // };
 
   handleNewClick = () => {
     console.log("Clicked New in Menu");
@@ -161,7 +165,12 @@ class App extends Component {
             />
             <Route
               path="/users/:id/open"
-              render={() => <DocsContainer user={this.state.user} />}
+              render={() => (
+                <DocsContainer
+                  docs={this.state.user.documents}
+                  userId={this.state.user.id}
+                />
+              )}
             />
 
             <Route path="/login" render={() => <LoginForm />} />
