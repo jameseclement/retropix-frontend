@@ -118,6 +118,9 @@ class App extends Component {
   handleDeleteSaveClick = () => {
     console.log("Clicked Delete Last Save in Menu");
   };
+  handleRevertClick = () => {
+    console.log("Clicked Revert in Menu");
+  };
 
   render() {
     return (
@@ -130,6 +133,7 @@ class App extends Component {
           handleLoginLogoutClick={this.handleLoginLogoutClick}
           handleMusicClick={this.handleMusicClick}
           handleDeleteSaveClick={this.handleDeleteSaveClick}
+          handleRevertClick={this.handleRevertClick}
         />
         <Grid>
           <Grid.Column width={2}>
