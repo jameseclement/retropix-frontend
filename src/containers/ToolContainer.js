@@ -1,22 +1,26 @@
 import React, { Component } from "react";
+import { Grid } from "semantic-ui-react";
 
 class ToolContainer extends Component {
   constructor() {
     super();
     this.colors = [
-      "red",
-      "orange",
-      "yellow",
-      "olive",
-      "green",
-      "teal",
-      "blue",
-      "violet",
-      "purple",
-      "pink",
-      "brown",
-      "grey",
-      "black"
+      "rgb(0,0,0)",
+      "rgb(81,81,81)",
+      "rgb(203,203,203)",
+      "rgb(255,255,255)",
+      "rgb(220,52,40)",
+      "rgb(240,132,76)",
+      "rgb(111,34,245)",
+      "rgb(234,58,247)",
+      "rgb(54,123,33)",
+      "rgb(117,250,76)",
+      "rgb(0,24,245)",
+      "rgb(114,251,253)",
+      "rgb(148,110,42)",
+      "rgb(255,254,84)",
+      "rgb(97,70,19)",
+      "rgb(247,197,153)"
     ];
   }
   render() {
@@ -63,6 +67,7 @@ class ToolContainer extends Component {
           <img src={require("../icons/line.png")} alt="line" />
         </a>
         <div className="tool">
+          <label> Brush Thickness </label>
           <input
             onChange={this.props.handleSizeChange}
             type="range"
@@ -70,15 +75,24 @@ class ToolContainer extends Component {
             max="30"
             value={this.props.size}
           />
-          <select onChange={this.props.handleColorChange}>
-            {this.colors.map(color => {
-              return (
-                <option selected={this.props.color === color} value={color}>
-                  {color}
-                </option>
-              );
-            })}
-          </select>
+        </div>
+        <div className="tool" style={{ backgroundColor: this.props.color }}>
+          <Grid columns={6} padded>
+            <Grid.Column />
+            <Grid.Column />
+            <Grid.Column />
+          </Grid>
+        </div>
+        <div className="tool">
+          <Grid columns={4} padded>
+            {this.colors.map(color => (
+              <Grid.Column
+                onClick={this.props.handleColorChange}
+                style={{ backgroundColor: color }}
+                key={color}
+              />
+            ))}
+          </Grid>
         </div>
       </div>
     );

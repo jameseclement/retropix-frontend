@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
+import { Tools } from "react-sketch";
 
 import Nav from "./containers/Nav";
 import Main from "./containers/Main";
 import Sidebar from "./containers/Sidebar";
 import Footer from "./containers/Footer";
 import Demo from "./components/Demo";
+import Modal from "./containers/Modal";
 import Adapter from "./Adapter";
+import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
+import DocsContainer from "./containers/DocsContainer";
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
   constructor() {
@@ -17,30 +24,49 @@ class App extends Component {
       doc: {},
       versions: [],
       version: {},
-      tool: "pencil",
+      tool: Tools.Pencil,
       color: "black",
       size: 3
     };
   }
 
   handleToolClick = e => {
-    console.log(e.currentTarget);
-    this.setState({
-      tool: e.currentTarget.dataset.tool
-    });
+    let tool, color = this.state.color;
+
+    switch (e.currentTarget.dataset.tool) {
+      case 'pencil':
+        tool = Tools.pencil;
+        break;
+      case 'line':
+        tool = Tools.Line;
+        break;
+      case 'rectangle':
+        tool = Tools.Rectangle;
+        break;
+      case 'circle':
+        tool = Tools.Circle;
+        break;
+      case 'eraser':
+        tool = Tools.Pencil;
+        color = 'white';
+        break;
+    }
+    
+    this.setState({tool, color});
   };
 
   handleSizeChange = e => {
     console.log(e.currentTarget.value);
     this.setState({
-      size: e.currentTarget.value
+      size: parseInt(e.currentTarget.value)
     });
   };
 
   handleColorChange = e => {
-    console.log(e.currentTarget.value);
+    e.persist();
+    console.log(e.target.style.backgroundColor);
     this.setState({
-      color: e.currentTarget.value
+      color: e.target.style.backgroundColor
     });
   };
 
@@ -59,17 +85,48 @@ class App extends Component {
     Adapter.getDoc(this.state.user.id, this.state.doc_id).then(doc =>
       this.setState({doc, versions: doc.versions})
     );
-  }
+  };
 
   saveVersion = (docId, versionData) => {
     const userId = this.state.user.id;
     Adapter.saveVersion(userId, docId, versionData);
-  }
+  };
+
+  handleNewClick = () => {
+    console.log("Clicked New in Menu");
+  };
+
+  handleOpenClick = () => {
+    console.log("Clicked Open in Menu");
+  };
+
+  handleSaveClick = () => {
+    this.saveVersion();
+  };
+
+  handleSaveAsClick = () => {
+    console.log("Clicked Save As in Menu");
+  };
+
+  handleLoginLogoutClick = () => {
+    console.log("Clicked Login/Logout in Menu");
+  };
+
+  handleMusicClick = () => {
+    console.log("Clicked Music in Menu");
+  };
 
   render() {
     return (
-      <div>
-        <Nav />
+      <Router>
+        <Nav
+          handleNewClick={this.handleNewClick}
+          handleOpenClick={this.handleOpenClick}
+          handleSaveClick={this.handleSaveClick}
+          handleSaveAsClick={this.handleSaveAsClick}
+          handleLoginLogoutClick={this.handleLoginLogoutClick}
+          handleMusicClick={this.handleMusicClick}
+        />
         <Grid>
           <Grid.Column width={2}>
             <Sidebar
@@ -82,17 +139,29 @@ class App extends Component {
             />
           </Grid.Column>
           <Grid.Column width={10}>
-            <Main
-              doc={this.state.doc}
-              tool={this.state.tool}
-              color={this.state.color}
-              size={this.state.size}
-              handleSave={this.saveVersion}
+            <Route
+              path="/users/:id/documents/:id"
+              render={() => (
+                <Main
+                  doc={this.state.doc}
+                  tool={this.state.tool}
+                  color={this.state.color}
+                  size={this.state.size}
+                  handleSave={this.saveVersion}
+                />
+              )}
             />
+            <Route
+              path="/users/:id/open"
+              render={() => <DocsContainer user={this.state.user} />}
+            />
+
+            <Route path="/login" render={() => <LoginForm />} />
+            <Route path="/signup" render={() => <SignupForm />} />
           </Grid.Column>
         </Grid>
         <Footer versions={this.state.versions} />
-      </div>
+      </Router>
     );
   }
 }

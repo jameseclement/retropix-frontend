@@ -9,7 +9,8 @@ class Drawing extends Component {
     this.imageLoaded = false;
 
     this.state = {
-      isDrawing: false
+      isDrawing: false,
+      startedLine: false
     };
   }
 
@@ -45,17 +46,54 @@ class Drawing extends Component {
   }
 
   handleMouseDown = () => {
-    this.setState({
-      isDrawing: true
-    });
     const stage = this.image.parent.parent;
     this.lastPointerPosition = stage.getPointerPosition();
+
+    if (this.props.tool === "line") {
+      this.setState({startedLine: !this.state.startedLine});
+      if (this.state.startedLine) {
+        this.startPoint = stage.getPointerPosition();
+      } else {
+        this.endPoint = stage.getPointerPosition();
+      }
+    } else {
+      this.setState({isDrawing: true});
+    }
   };
 
   handleMouseUp = () => {
-    this.setState({
-      isDrawing: false
-    });
+    this.setState({isDrawing: false});
+
+    if (this.props.tool === "line") {
+      const {ctx} = this.state;
+
+      ctx.strokeStyle = this.props.color;
+      ctx.lineJoin = "round";
+      ctx.lineWidth = this.props.size;
+
+      ctx.globalCompositeOperation = "source-over";
+      ctx.beginPath();
+
+      let localPos = {
+        x: this.lastPointerPosition.x - this.image.x(),
+        y: this.lastPointerPosition.y - this.image.y()
+      };
+      ctx.moveTo(localPos.x, localPos.y);
+
+      const stage = this.image.parent.parent;
+
+      var pos = stage.getPointerPosition();
+      localPos = {
+        x: pos.x - this.image.x(),
+        y: pos.y - this.image.y()
+      };
+
+      ctx.lineTo(localPos.x, localPos.y);
+      ctx.closePath();
+      ctx.stroke();
+      this.lastPointerPosition = pos;
+      this.image.getLayer().draw();
+    }
   };
 
   handleMouseMove = () => {
