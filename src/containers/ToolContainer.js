@@ -27,6 +27,8 @@ class ToolContainer extends Component {
     let pencilClasses = "tool";
     let eraserClasses = "tool";
     let lineClasses = "tool";
+    let rectClasses = "tool";
+    let circleClasses = "tool";
 
     switch (this.props.tool) {
       case "pencil":
@@ -37,6 +39,12 @@ class ToolContainer extends Component {
         break;
       case "line":
         lineClasses += " active";
+        break;
+      case "rectangle":
+        rectClasses += " active";
+        break;
+      case "circle":
+        circleClasses += " active";
         break;
     }
 
@@ -65,6 +73,22 @@ class ToolContainer extends Component {
           data-tool="line"
         >
           <img src={require("../icons/line.png")} alt="line" />
+        </a>
+        <a
+          onClick={this.props.handleToolClick}
+          href="#"
+          className={rectClasses}
+          data-tool="rectangle"
+        >
+          <img src={require("../icons/rectangle.png")} alt="rectangle" />
+        </a>
+        <a
+          onClick={this.props.handleToolClick}
+          href="#"
+          className={circleClasses}
+          data-tool="circle"
+        >
+          <img src={require("../icons/circle.png")} alt="circle" />
         </a>
         <div className="tool">
           <label> Brush Thickness </label>
