@@ -5,11 +5,11 @@ class VersionContainer extends Component {
   render() {
     return (
       <ul className="version-list">{this.props.versions.map(version => {
-        return <li><VersionThumbnail 
+        return <VersionThumbnail 
           key={version.id} 
           version={version} 
           handleVersionSelect={this.props.handleVersionSelect}
-        /></li>
+        />
       })}</ul>
     );
   }

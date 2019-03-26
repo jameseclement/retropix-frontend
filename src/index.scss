@@ -133,17 +133,14 @@ $tool-border-width: 4px;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-flow: row;
-  justify-content: start;
   margin-top: 10px;
-  height: 120px;
+  height: 108px;
 }
 
 .version-thumb {
-  border: 2px solid #000;
-  padding: 2px;
-  margin-right: 6px;
+  display: inline-block;
+  border: 2px solid $gray-dark;
+  margin: 0 6px 6px 0;
   height: 100%;
 
   img {height: 100%;}

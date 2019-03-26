@@ -148,14 +148,20 @@ class App extends Component {
             <Route
               path="/users/:id/documents/:id"
               render={() => (
-                <Main
-                  doc={this.state.doc}
-                  version={this.state.version}
-                  tool={this.state.tool}
-                  color={this.state.color}
-                  size={this.state.size}
-                  handleSave={this.saveVersion}
-                />
+                <React.Fragment>
+                  <Main
+                    doc={this.state.doc}
+                    version={this.state.version}
+                    tool={this.state.tool}
+                    color={this.state.color}
+                    size={this.state.size}
+                    handleSave={this.saveVersion}
+                  />
+                  <Footer 
+                    versions={this.state.versions} 
+                    handleVersionSelect={this.handleVersionSelect} 
+                  />
+                </React.Fragment>
               )}
             />
             <Route
@@ -167,9 +173,6 @@ class App extends Component {
             <Route path="/signup" render={() => <SignupForm />} />
           </Grid.Column>
         </Grid>
-        <Footer 
-          versions={this.state.versions} 
-          handleVersionSelect={this.handleVersionSelect} />
       </Router>
     );
   }
