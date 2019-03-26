@@ -8,6 +8,18 @@ class Main extends Component {
     this.sketch = React.createRef();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.version !== this.props.version) {
+      this.loadVersion();
+    }
+  }
+
+  loadVersion() {
+    const sketch = this.sketch.current;
+    sketch.clear();
+    sketch.setBackgroundFromDataUrl(this.props.version.data);
+  }
+
   render() {
     return (
       <SketchField 

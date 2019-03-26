@@ -5,7 +5,10 @@ class Footer extends Component {
   render() {
     return (
       <footer>
-        <VersionContainer versions={this.props.versions} />
+        <VersionContainer 
+          versions={this.props.versions} 
+          handleVersionSelect={this.props.handleVersionSelect}
+          />
       </footer>
     );
   }

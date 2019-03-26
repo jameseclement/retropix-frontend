@@ -6,6 +6,7 @@ const VersionThumbnail = (props) => {
       className="version-thumb"
       src={props.version.data} 
       alt={props.version.id} 
+      onClick={() => props.handleVersionSelect(props.version)}
     />
   );
 };

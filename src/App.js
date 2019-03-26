@@ -83,7 +83,9 @@ class App extends Component {
 
   loadDoc = id => {
     Adapter.getDoc(this.state.user.id, this.state.doc_id).then(doc =>
-      this.setState({doc, versions: doc.versions})
+      this.setState({doc, 
+        version: doc.current_version, 
+        versions: doc.versions})
     );
   };
 
@@ -116,6 +118,10 @@ class App extends Component {
     console.log("Clicked Music in Menu");
   };
 
+  handleVersionSelect = version => {
+    this.setState({version})
+  }
+
   render() {
     return (
       <Router>
@@ -144,6 +150,7 @@ class App extends Component {
               render={() => (
                 <Main
                   doc={this.state.doc}
+                  version={this.state.version}
                   tool={this.state.tool}
                   color={this.state.color}
                   size={this.state.size}
@@ -160,7 +167,9 @@ class App extends Component {
             <Route path="/signup" render={() => <SignupForm />} />
           </Grid.Column>
         </Grid>
-        <Footer versions={this.state.versions} />
+        <Footer 
+          versions={this.state.versions} 
+          handleVersionSelect={this.handleVersionSelect} />
       </Router>
     );
   }
