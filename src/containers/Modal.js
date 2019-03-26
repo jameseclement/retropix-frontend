@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-import Form from "";
-import DocsContainer from "";
+import LoginForm from "../components/LoginForm";
+
+import DocsContainer from "./DocsContainer";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Modal extends Component {
   render() {
-    return (
-      <div>
-        <Form />
-        //OR
-        <DocsContainer />
-      </div>
-    );
+    return <div>render={() => <DocsContainer user={this.props.user} />}</div>;
   }
 }
 

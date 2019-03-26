@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import Modal from '../components/Modal'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Modal from "./Modal";
 
 import {
   Grid,
@@ -20,14 +20,19 @@ class Nav extends Component {
         <Dropdown item text="File" className="file">
           <Dropdown.Menu>
             <Dropdown.Item
+              as={Link}
+              to="/users/:id/documents/:id"
               onClick={this.props.handleNewClick}
               icon="pencil alternate"
               text="New..."
             />
-            <Dropdown.Item as={Link} to="/users/:id/open"
+            <Dropdown.Item
+              as={Link}
+              to="/users/:id/open"
               onClick={this.props.handleOpenClick}
               icon="folder open outline"
-              text="Open..." />
+              text="Open..."
+            />
             <Dropdown.Item
               onClick={this.props.handleSaveClick}
               icon="save"
@@ -39,9 +44,11 @@ class Nav extends Component {
               text="Save As..."
             />
             <Dropdown.Item
+              as={Link}
+              to="/login"
               onClick={this.props.handleLoginLogoutClick}
               icon="power off"
-              text="Logout..."
+              text="Login..."
             />
           </Dropdown.Menu>
         </Dropdown>

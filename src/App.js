@@ -5,10 +5,13 @@ import Nav from "./containers/Nav";
 import Main from "./containers/Main";
 import Sidebar from "./containers/Sidebar";
 import Demo from "./components/Demo";
-import Modal from "./components/Modal";
+import Modal from "./containers/Modal";
 import Adapter from "./Adapter";
+import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
+import DocsContainer from "./containers/DocsContainer";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
   constructor() {
@@ -77,7 +80,7 @@ class App extends Component {
   };
 
   handleSaveClick = () => {
-    console.log("Clicked Save in Menu");
+    this.saveVersion();
   };
 
   handleSaveAsClick = () => {
@@ -115,16 +118,27 @@ class App extends Component {
             />
           </Grid.Column>
           <Grid.Column width={10}>
-            <Main
-              doc={this.state.doc}
-              tool={this.state.tool}
-              color={this.state.color}
-              size={this.state.size}
-              handleSave={this.saveVersion}
+            <Route
+              path="/users/:id/documents/:id"
+              render={() => (
+                <Main
+                  doc={this.state.doc}
+                  tool={this.state.tool}
+                  color={this.state.color}
+                  size={this.state.size}
+                  handleSave={this.saveVersion}
+                />
+              )}
             />
+            <Route
+              path="/users/:id/open"
+              render={() => <DocsContainer user={this.state.user} />}
+            />
+
+            <Route path="/login" render={() => <LoginForm />} />
+            <Route path="/signup" render={() => <SignupForm />} />
           </Grid.Column>
         </Grid>
-        <Route exact path="/users/:id/open" component={Modal} />
       </Router>
     );
   }
