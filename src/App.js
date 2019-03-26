@@ -90,9 +90,22 @@ class App extends Component {
     );
   };
 
-  saveVersion = (docId, versionData) => {
+  loadVersions = id => {
+    Adapter.getDocVersions(this.state.user.id, this.state.doc_id)
+      .then(versions => {
+        this.setState({versions})
+      })
+  }
+
+  saveVersion() {
     const userId = this.state.user.id;
-    Adapter.saveVersion(userId, docId, versionData);
+    const docId = this.state.doc.id;
+    const versionData = this.main.current.getDataURL();
+
+    Adapter.saveVersion(userId, docId, versionData)
+      .then(version => {
+        this.setState({versions: [...this.state.versions, version]})
+      })
   };
 
   handleNewClick = () => {
@@ -104,9 +117,7 @@ class App extends Component {
   };
 
   handleSaveClick = () => {
-    // this.saveVersion();
-    // console.log(this.main, this.main.current);
-    this.main.current.saveCurrentVersion();
+    this.saveVersion();
   };
 
   handleSaveAsClick = () => {

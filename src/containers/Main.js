@@ -21,13 +21,6 @@ class Main extends Component {
     sketch.setBackgroundFromDataUrl(this.props.version.data);
   }
 
-  saveCurrentVersion() {
-    const userId = this.props.user.id;
-    const docId = this.props.doc.id;
-    const versionData = this.getDataURL();
-    Adapter.saveVersion(userId, docId, versionData);
-  };
-
   getDataURL() {
     return this.sketch.current.toDataURL();
   }
