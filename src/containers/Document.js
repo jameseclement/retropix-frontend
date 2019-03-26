@@ -175,13 +175,11 @@ class Document extends Component {
         </Grid.Column>
         <Grid.Column width={8} className="canvas-container">
           <div className="main">
-            <div className="ui input">
-              <input className="title-field"
-                type="text" name="title" 
-                placeholder="Untitled" 
-                defaultValue={this.state.doc.title} 
-                onBlur={this.handleUpdateTitle} />
-            </div>
+            <input className="title-field"
+              type="text" name="title" 
+              placeholder="Untitled" 
+              defaultValue={this.state.doc.title} 
+              onBlur={this.handleUpdateTitle} />
             <SketchField
               width="700px"
               height="400px"
