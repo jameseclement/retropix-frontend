@@ -143,6 +143,17 @@ class App extends Component {
             />
           )}
         />
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <LoginForm
+              {...props}
+              users={this.state.users}
+              handleUserSelect={this.handleUserSelect}
+            />
+          )}
+        />
         <Route path="/signup" component={SignupForm} />
       </Router>
     );

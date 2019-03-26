@@ -195,7 +195,7 @@ class Document extends Component {
               ref={this.sketch}
               lineColor={this.state.color}
               lineWidth={this.state.size}
-              fillColor="black"
+              fillColor={this.state.color}
               backgroundColor="white"
             />
             <VersionContainer
