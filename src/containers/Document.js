@@ -11,10 +11,10 @@ import VersionContainer from "./VersionContainer";
 class Document extends Component {
   constructor(props) {
     super(props);
-    const id = props.match.params.id;
+    const docId = props.match.params.id;
 
     this.state = {
-      id,
+      docId,
       doc: {},
       versions: [],
       version: {},
@@ -27,7 +27,7 @@ class Document extends Component {
   }
 
   componentDidMount() {
-    this.loadDoc(this.state.id);
+    this.loadDoc(this.state.docId);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,7 +37,7 @@ class Document extends Component {
   }
 
   loadDoc() {
-    Adapter.getDoc(this.props.user.id, this.state.id).then(doc =>
+    Adapter.getDoc(this.props.user.id, this.state.docId).then(doc =>
       this.setState({doc, 
         version: doc.current_version, 
         versions: doc.versions})
@@ -45,7 +45,7 @@ class Document extends Component {
   };
 
   loadVersions() {
-    Adapter.getDocVersions(this.props.user.id, this.state.id)
+    Adapter.getDocVersions(this.props.user.id, this.state.docId)
       .then(versions => {
         this.setState({versions})
       })
@@ -53,7 +53,7 @@ class Document extends Component {
 
   saveVersion() {
     const userId = this.props.user.id;
-    const docId = this.state.id;
+    const docId = this.state.docId;
     const versionData = this.getDataURL();
 
     Adapter.saveVersion(userId, docId, versionData)

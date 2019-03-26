@@ -81,14 +81,11 @@ class App extends Component {
           handleDeleteSaveClick={this.handleDeleteSaveClick}
           handleRevertClick={this.handleRevertClick} />
         <Route
-          path="/users/:id/documents/:id"
-          render={props => {
-            console.log(props);
-            return <Document {...props} user={this.state.user} />
-          }}/>
+          exact path="/users/:id/documents/:id"
+          render={props => <Document {...props} user={this.state.user} />}/>
         <Route
-          path="/users/:id/open"
-          render={() => <DocsContainer user={this.state.user} />} />
+          path="/users/:id"
+          render={props => <DocsContainer {...props} user={this.state.user} />} />
         <Route 
           path="/login" 
           component={LoginForm} />
