@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
+import { Tools } from "react-sketch";
 
 import Nav from "./containers/Nav";
 import Main from "./containers/Main";
@@ -21,23 +22,41 @@ class App extends Component {
       doc_id: 1,
       doc: {},
       version: {},
-      tool: "pencil",
+      tool: Tools.Pencil,
       color: "black",
       size: 3
     };
   }
 
   handleToolClick = e => {
-    console.log(e.currentTarget);
-    this.setState({
-      tool: e.currentTarget.dataset.tool
-    });
+    let tool, color = this.state.color;
+
+    switch (e.currentTarget.dataset.tool) {
+      case 'pencil':
+        tool = Tools.pencil;
+        break;
+      case 'line':
+        tool = Tools.Line;
+        break;
+      case 'rectangle':
+        tool = Tools.Rectangle;
+        break;
+      case 'circle':
+        tool = Tools.Circle;
+        break;
+      case 'eraser':
+        tool = Tools.Pencil;
+        color = 'white';
+        break;
+    }
+    
+    this.setState({tool, color});
   };
 
   handleSizeChange = e => {
     console.log(e.currentTarget.value);
     this.setState({
-      size: e.currentTarget.value
+      size: parseInt(e.currentTarget.value)
     });
   };
 
