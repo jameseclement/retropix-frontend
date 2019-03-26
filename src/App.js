@@ -76,7 +76,21 @@ class App extends Component {
 
   componentDidMount() {
     this.loadUser();
-    this.loadDoc();
+    // this.loadDoc();
+  }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.user !== this.state.user) {
+  //     this.userUpdated();
+  //   }
+  // }
+
+  userUpdated() {
+    // if (this.match && this.match.params) {
+    //   if ("document_id" in this.match.params) {
+    //     this.loadDoc(this.match.params.document_id);
+    //   }
+    // }
   }
 
   loadUser() {
@@ -84,17 +98,18 @@ class App extends Component {
   }
 
   loadDoc = id => {
-    Adapter.getDoc(this.state.user.id, this.state.doc_id).then(doc =>
-      this.setState({
-        doc,
-        version: doc.current_version,
-        versions: doc.versions
-      })
+    Adapter.getDoc(this.state.user.id, id).then(
+      doc => console.log(doc)
+      // this.setState({
+      //   doc,
+      //   version: doc.current_version,
+      //   versions: doc.versions
+      // })
     );
   };
 
   loadVersions = id => {
-    Adapter.getDocVersions(this.state.user.id, this.state.doc_id).then(
+    Adapter.getDocVersions(this.state.user.id, this.state.doc.id).then(
       versions => {
         this.setState({ versions });
       }
@@ -183,25 +198,29 @@ class App extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             <Route
-              path="/users/:id/documents/:id"
-              render={() => (
-                <React.Fragment>
-                  <Main
-                    ref={this.main}
-                    doc={this.state.doc}
-                    user={this.state.user}
-                    version={this.state.version}
-                    tool={this.state.tool}
-                    color={this.state.color}
-                    size={this.state.size}
-                    handleSave={this.saveVersion}
-                  />
-                  <Footer
-                    versions={this.state.versions}
-                    handleVersionSelect={this.handleVersionSelect}
-                  />
-                </React.Fragment>
-              )}
+              path="/users/:user_id/documents/:document_id"
+              render={props => {
+                console.log(props.match);
+                this.loadDoc(props.match.params.document_id);
+                return (
+                  <React.Fragment>
+                    <Main
+                      ref={this.main}
+                      doc={this.state.doc}
+                      user={this.state.user}
+                      version={this.state.version}
+                      tool={this.state.tool}
+                      color={this.state.color}
+                      size={this.state.size}
+                      handleSave={this.saveVersion}
+                    />
+                    <Footer
+                      versions={this.state.versions}
+                      handleVersionSelect={this.handleVersionSelect}
+                    />
+                  </React.Fragment>
+                );
+              }}
             />
             <Route
               path="/users/:id/open"
