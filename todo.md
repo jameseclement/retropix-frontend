@@ -11,3 +11,4 @@
 
 * add version list scroll
 * add fill color support
+* improve new document ux
