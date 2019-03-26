@@ -22,8 +22,6 @@ class Nav extends Component {
         <Dropdown item text="File" className="file">
           <Dropdown.Menu>
             <Dropdown.Item
-              as={Link}
-              to="/users/:id/documents/:id"
               onClick={this.props.handleNewClick}
               icon="pencil alternate"
               text="New..."
