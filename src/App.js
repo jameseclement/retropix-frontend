@@ -1,139 +1,35 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
 import { Tools } from "react-sketch";
 
 import Nav from "./containers/Nav";
-import Main from "./containers/Main";
-import Sidebar from "./containers/Sidebar";
-import Footer from "./containers/Footer";
-import Demo from "./components/Demo";
-import Modal from "./containers/Modal";
 import Adapter from "./Adapter";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import DocsContainer from "./containers/DocsContainer";
+import Document from "./containers/Document";
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
   constructor() {
     super();
+    
     this.userId = 1;
-
     this.main = React.createRef();
+
     this.state = {
       user: { id: 1, documents: [] },
       doc_id: 1,
-      doc: {},
-      versions: [],
-      version: {},
-      tool: Tools.Pencil,
-      color: "black",
-      size: 3
     };
   }
 
-  handleToolClick = e => {
-    let tool,
-      color = this.state.color;
-
-    switch (e.currentTarget.dataset.tool) {
-      case "pencil":
-        tool = Tools.pencil;
-        break;
-      case "line":
-        tool = Tools.Line;
-        break;
-      case "rectangle":
-        tool = Tools.Rectangle;
-        break;
-      case "circle":
-        tool = Tools.Circle;
-        break;
-      case "eraser":
-        tool = Tools.Pencil;
-        color = "white";
-        break;
-    }
-
-    this.setState({ tool, color });
-  };
-
-  handleSizeChange = e => {
-    console.log(e.currentTarget.value);
-    this.setState({
-      size: parseInt(e.currentTarget.value)
-    });
-  };
-
-  handleColorChange = e => {
-    e.persist();
-    console.log(e.target.style.backgroundColor);
-    this.setState({
-      color: e.target.style.backgroundColor
-    });
-  };
-
   componentDidMount() {
     this.loadUser();
-    // this.loadDoc();
-  }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.user !== this.state.user) {
-  //     this.userUpdated();
-  //   }
-  // }
-
-  userUpdated() {
-    // if (this.match && this.match.params) {
-    //   if ("document_id" in this.match.params) {
-    //     this.loadDoc(this.match.params.document_id);
-    //   }
-    // }
   }
 
   loadUser() {
-    Adapter.getUser(this.userId).then(user => this.setState({ user }));
-  }
-
-  loadDoc = id => {
-    Adapter.getDoc(this.state.user.id, id).then(
-      doc => console.log(doc)
-      // this.setState({
-      //   doc,
-      //   version: doc.current_version,
-      //   versions: doc.versions
-      // })
-    );
-  };
-
-  loadVersions = id => {
-    Adapter.getDocVersions(this.state.user.id, this.state.doc.id).then(
-      versions => {
-        this.setState({ versions });
-      }
-    );
-  };
-
-  saveVersion() {
-    const userId = this.state.user.id;
-    const docId = this.state.doc.id;
-    const versionData = this.main.current.getDataURL();
-
-    Adapter.saveVersion(userId, docId, versionData).then(version => {
-      this.setState({ versions: [...this.state.versions, version] });
-    });
-  }
-
-  revertToVersion() {
-    const userId = this.state.user.id;
-    const docId = this.state.doc.id;
-    const versionId = this.state.version.id;
-
-    Adapter.revertToVersion(userId, docId, versionId).then(versionsDeleted => {
-      this.loadVersions();
-    });
+    Adapter.getUser(this.userId)
+      .then(user => this.setState({ user }));
   }
 
   handleNewClick = () => {
@@ -183,59 +79,22 @@ class App extends Component {
           handleLoginLogoutClick={this.handleLoginLogoutClick}
           handleMusicClick={this.handleMusicClick}
           handleDeleteSaveClick={this.handleDeleteSaveClick}
-          handleRevertClick={this.handleRevertClick}
-        />
-        <Grid>
-          <Grid.Column width={2}>
-            <Sidebar
-              handleToolClick={this.handleToolClick}
-              handleSizeChange={this.handleSizeChange}
-              tool={this.state.tool}
-              handleColorChange={this.handleColorChange}
-              size={this.state.size}
-              color={this.state.color}
-            />
-          </Grid.Column>
-          <Grid.Column width={10}>
-            <Route
-              path="/users/:user_id/documents/:document_id"
-              render={props => {
-                console.log(props.match);
-                this.loadDoc(props.match.params.document_id);
-                return (
-                  <React.Fragment>
-                    <Main
-                      ref={this.main}
-                      doc={this.state.doc}
-                      user={this.state.user}
-                      version={this.state.version}
-                      tool={this.state.tool}
-                      color={this.state.color}
-                      size={this.state.size}
-                      handleSave={this.saveVersion}
-                    />
-                    <Footer
-                      versions={this.state.versions}
-                      handleVersionSelect={this.handleVersionSelect}
-                    />
-                  </React.Fragment>
-                );
-              }}
-            />
-            <Route
-              path="/users/:id/open"
-              render={() => (
-                <DocsContainer
-                  docs={this.state.user.documents}
-                  userId={this.state.user.id}
-                />
-              )}
-            />
-
-            <Route path="/login" render={() => <LoginForm />} />
-            <Route path="/signup" render={() => <SignupForm />} />
-          </Grid.Column>
-        </Grid>
+          handleRevertClick={this.handleRevertClick} />
+        <Route
+          path="/users/:id/documents/:id"
+          render={props => {
+            console.log(props);
+            return <Document {...props} user={this.state.user} />
+          }}/>
+        <Route
+          path="/users/:id/open"
+          render={() => <DocsContainer user={this.state.user} />} />
+        <Route 
+          path="/login" 
+          component={LoginForm} />
+        <Route 
+          path="/signup"
+          component={SignupForm} />
       </Router>
     );
   }
