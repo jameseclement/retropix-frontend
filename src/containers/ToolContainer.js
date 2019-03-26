@@ -93,6 +93,7 @@ class ToolContainer extends Component {
         <div className="tool">
           <label> Brush Thickness </label>
           <input
+            className="size-slider"
             onChange={this.props.handleSizeChange}
             type="range"
             min="3"
