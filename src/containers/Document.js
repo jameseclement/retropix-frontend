@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {SketchField, Tools} from 'react-sketch';
+import { SketchField, Tools } from "react-sketch";
 import { Grid } from "semantic-ui-react";
 
 import Adapter from "../Adapter";
@@ -18,10 +18,10 @@ class Document extends Component {
       doc: {},
       versions: [],
       version: {},
-      color: 'black',
+      color: "black",
       size: 3,
       tool: Tools.Pencil
-    }
+    };
 
     this.sketch = React.createRef();
   }
@@ -38,17 +38,20 @@ class Document extends Component {
 
   loadDoc() {
     Adapter.getDoc(this.props.user.id, this.state.docId).then(doc =>
-      this.setState({doc, 
-        version: doc.current_version, 
-        versions: doc.versions})
+      this.setState({
+        doc,
+        version: doc.current_version,
+        versions: doc.versions
+      })
     );
-  };
+  }
 
   loadVersions() {
-    Adapter.getDocVersions(this.props.user.id, this.state.docId)
-      .then(versions => {
-        this.setState({versions})
-      })
+    Adapter.getDocVersions(this.props.user.id, this.state.docId).then(
+      versions => {
+        this.setState({ versions });
+      }
+    );
   }
 
   saveVersion() {
@@ -56,21 +59,19 @@ class Document extends Component {
     const docId = this.state.docId;
     const versionData = this.getDataURL();
 
-    Adapter.saveVersion(userId, docId, versionData)
-      .then(version => {
-        this.setState({versions: [...this.state.versions, version]})
-      })
-  };
+    Adapter.saveVersion(userId, docId, versionData).then(version => {
+      this.setState({ versions: [...this.state.versions, version] });
+    });
+  }
 
   revertToVersion() {
     const userId = this.props.user.id;
     const docId = this.state.docId;
     const versionId = this.state.version.id;
-    
-    Adapter.revertToVersion(userId, docId, versionId)
-      .then((versionsDeleted) => {
-        this.loadVersions()
-      })
+
+    Adapter.revertToVersion(userId, docId, versionId).then(versionsDeleted => {
+      this.loadVersions();
+    });
   }
 
   loadVersion() {
@@ -86,7 +87,7 @@ class Document extends Component {
   handleToolClick = e => {
     let tool;
     let color = this.state.color;
-
+    console.log(e.currentTarget.dataset.tool);
     switch (e.currentTarget.dataset.tool) {
       case "pencil":
         tool = Tools.pencil;
@@ -125,7 +126,7 @@ class Document extends Component {
   };
 
   handleVersionSelect = version => {
-    this.setState({version})
+    this.setState({ version });
   };
 
   handleSaveClick = () => {
@@ -163,19 +164,19 @@ class Document extends Component {
         </Grid.Column>
         <Grid.Column width={8} className="canvas-container">
           <div className="main">
-            <SketchField 
-              width='700px' 
-              height='400px'
-              tool={this.props.tool}
+            <SketchField
+              width="700px"
+              height="400px"
+              tool={this.state.tool}
               name="sketch"
               className="canvas-container"
               ref={this.sketch}
               lineColor={this.state.color}
               lineWidth={this.state.size}
-              fillColor='black'
-              backgroundColor='white'
+              fillColor="black"
+              backgroundColor="white"
             />
-            <VersionContainer 
+            <VersionContainer
               versions={this.state.versions}
               handleVersionSelect={this.handleVersionSelect}
             />
@@ -183,29 +184,44 @@ class Document extends Component {
         </Grid.Column>
         <Grid.Column width={2}>
           <div className="sidebar tools">
-            <a href="#" className="tool" 
+            <a
+              href="#"
+              className="tool"
               data-tool="save"
-              onClick={this.handleSaveClick}>
+              onClick={this.handleSaveClick}
+            >
               Save
             </a>
-            <a href="#" className="tool" 
+            <a
+              href="#"
+              className="tool"
               data-tool="undo"
-              onClick={this.handleUndoClick}>
+              onClick={this.handleUndoClick}
+            >
               Undo
             </a>
-            <a href="#" className="tool" 
+            <a
+              href="#"
+              className="tool"
               data-tool="redo"
-              onClick={this.handleRedoClick}>
+              onClick={this.handleRedoClick}
+            >
               Redo
             </a>
-            <a href="#" className="tool" 
+            <a
+              href="#"
+              className="tool"
               data-tool="revert"
-              onClick={this.handleRevertClick}>
+              onClick={this.handleRevertClick}
+            >
               Revert
             </a>
-            <a href="#" className="tool"
+            <a
+              href="#"
+              className="tool"
               data-tool="delete"
-              onClick={this.handleDeleteSaveClick}>
+              onClick={this.handleDeleteSaveClick}
+            >
               Delete
             </a>
           </div>
