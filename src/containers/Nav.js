@@ -50,6 +50,13 @@ class Nav extends Component {
               icon="power off"
               text="Login..."
             />
+            <Dropdown.Item
+              as={Link}
+              to="/signup"
+              onClick={this.props.handleSignupClick}
+              icon="heart"
+              text="Signup"
+            />
           </Dropdown.Menu>
         </Dropdown>
         <Dropdown item text="Goodies">
