@@ -5,6 +5,7 @@ import { Tools } from "react-sketch";
 import Nav from "./containers/Nav";
 import Main from "./containers/Main";
 import Sidebar from "./containers/Sidebar";
+import Footer from "./containers/Footer";
 import Demo from "./components/Demo";
 import Modal from "./containers/Modal";
 import Adapter from "./Adapter";
@@ -17,10 +18,12 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 class App extends Component {
   constructor() {
     super();
+    this.main = React.createRef();
     this.state = {
       user: { id: 1 },
       doc_id: 1,
       doc: {},
+      versions: [],
       version: {},
       tool: Tools.Pencil,
       color: "black",
@@ -82,14 +85,40 @@ class App extends Component {
 
   loadDoc = id => {
     Adapter.getDoc(this.state.user.id, this.state.doc_id).then(doc =>
-      this.setState({ doc })
+      this.setState({doc, 
+        version: doc.current_version, 
+        versions: doc.versions})
     );
   };
 
-  saveVersion = (docId, versionData) => {
+  loadVersions = id => {
+    Adapter.getDocVersions(this.state.user.id, this.state.doc_id)
+      .then(versions => {
+        this.setState({versions})
+      })
+  }
+
+  saveVersion() {
     const userId = this.state.user.id;
-    Adapter.saveVersion(userId, docId, versionData);
+    const docId = this.state.doc.id;
+    const versionData = this.main.current.getDataURL();
+
+    Adapter.saveVersion(userId, docId, versionData)
+      .then(version => {
+        this.setState({versions: [...this.state.versions, version]})
+      })
   };
+
+  revertToVersion() {
+    const userId = this.state.user.id;
+    const docId = this.state.doc.id;
+    const versionId = this.state.version.id;
+    
+    Adapter.revertToVersion(userId, docId, versionId)
+      .then((versionsDeleted) => {
+        this.loadVersions()
+      })
+  }
 
   handleNewClick = () => {
     console.log("Clicked New in Menu");
@@ -115,11 +144,16 @@ class App extends Component {
     console.log("Clicked Music in Menu");
   };
 
+  handleVersionSelect = version => {
+    this.setState({version})
+  };
+
   handleDeleteSaveClick = () => {
     console.log("Clicked Delete Last Save in Menu");
   };
+
   handleRevertClick = () => {
-    console.log("Clicked Revert in Menu");
+    this.revertToVersion();
   };
 
   render() {
@@ -150,13 +184,22 @@ class App extends Component {
             <Route
               path="/users/:id/documents/:id"
               render={() => (
-                <Main
-                  doc={this.state.doc}
-                  tool={this.state.tool}
-                  color={this.state.color}
-                  size={this.state.size}
-                  handleSave={this.saveVersion}
-                />
+                <React.Fragment>
+                  <Main
+                    ref={this.main}
+                    doc={this.state.doc}
+                    user={this.state.user}
+                    version={this.state.version}
+                    tool={this.state.tool}
+                    color={this.state.color}
+                    size={this.state.size}
+                    handleSave={this.saveVersion}
+                  />
+                  <Footer 
+                    versions={this.state.versions} 
+                    handleVersionSelect={this.handleVersionSelect} 
+                  />
+                </React.Fragment>
               )}
             />
             <Route

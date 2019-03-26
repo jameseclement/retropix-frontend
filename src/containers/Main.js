@@ -1,11 +1,28 @@
 import React, { Component } from "react";
 import {SketchField, Tools} from 'react-sketch';
 import Canvas from "../components/Canvas";
+import Adapter from "../Adapter";
 
 class Main extends Component {
   constructor() {
     super();
     this.sketch = React.createRef();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.version !== this.props.version) {
+      this.loadVersion();
+    }
+  }
+
+  loadVersion() {
+    const sketch = this.sketch.current;
+    sketch.clear();
+    sketch.setBackgroundFromDataUrl(this.props.version.data);
+  }
+
+  getDataURL() {
+    return this.sketch.current.toDataURL();
   }
 
   render() {
