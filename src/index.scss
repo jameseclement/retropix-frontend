@@ -61,16 +61,8 @@ body {
   font-family: $font-family !important;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-input,
-option,
-select,
-textarea {
+h1, h2, h3, h4, h5, h6,
+input, option, select, textarea {
   font-family: $font-family-alt !important;
   font-weight: 700;
 }
@@ -85,6 +77,16 @@ textarea {
 
 .canvas-container {
   min-width: 780px !important;
+}
+
+/* nav/menu */
+
+.nav-menu {
+  font-size: 18px !important;
+
+  .item {
+    padding: 10px !important;
+  }
 }
 
 /* buttons */
@@ -172,4 +174,39 @@ $tool-border-width: 4px;
   img {height: 100%;}
 }
 
-/* misc */
+/* login */
+
+$login-bg: #d0fd34;
+
+.login-page {
+  position: absolute;
+  background-color: $login-bg;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.login-container {
+  // background-image: url(./logo.png);
+  // background-size: 2345px 1800px;
+  // display: flex;
+  
+}
+
+.login-logo {
+  width: 50%;
+  height: auto;
+  padding: 20px;
+  float: left;
+}
+
+.login-form {
+  float: left;
+  padding: 60px 20px 0 20px;
+  
+  select {
+    font-size: 20px;
+  }
+}
+

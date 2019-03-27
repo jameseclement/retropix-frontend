@@ -18,7 +18,7 @@ class Nav extends Component {
     const params = this.props.match.params;
 
     return (
-      <Menu>
+      <Menu className="nav-menu">
         <Dropdown item text="File" className="file">
           <Dropdown.Menu>
             <Dropdown.Item
