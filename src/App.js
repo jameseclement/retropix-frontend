@@ -15,6 +15,9 @@ import {
   withRouter
 } from "react-router-dom";
 
+import music from './audio/surf.wav';
+import Sound from 'react-sound';
+
 class App extends Component {
   constructor() {
     super();
@@ -26,7 +29,8 @@ class App extends Component {
       user: { id: 1, documents: [] },
       doc_id: 1,
       deletedDocs: [],
-      users: []
+      users: [],
+      musicStatus: Sound.status.STOPPED
     };
   }
 
@@ -84,7 +88,9 @@ class App extends Component {
   };
 
   handleMusicClick = () => {
-    console.log("Clicked Music in Menu");
+    let status = this.state.musicStatus === Sound.status.PLAYING ? 
+      Sound.status.STOPPED : Sound.status.PLAYING;
+    this.setState({musicStatus: status});
   };
 
   handleVersionSelect = version => {
@@ -155,6 +161,11 @@ class App extends Component {
           )}
         />
         <Route path="/signup" component={SignupForm} />
+
+        <Sound
+          url={music}
+          playStatus={this.state.musicStatus}
+        />
       </Router>
     );
   }
